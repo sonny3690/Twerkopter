@@ -20,6 +20,8 @@ namespace Sway_Chopter
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        public Viewport viewport;
+
         public MainGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -41,6 +43,29 @@ namespace Sway_Chopter
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft;
+            graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
+
+            viewport = GraphicsDevice.Viewport;
+
+            int width = viewport.Width;
+            int height = viewport.Height;
+
+            if (width > height)
+            {
+                int temp = width;
+                width = height;
+                height = temp;
+            }
+
+            graphics.PreferredBackBufferHeight = height;
+            graphics.PreferredBackBufferWidth = width;
+
+            graphics.SupportedOrientations = DisplayOrientation.Portrait;
+
+            graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
 
             base.Initialize();
         }
