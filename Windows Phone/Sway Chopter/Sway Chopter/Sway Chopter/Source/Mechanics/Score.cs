@@ -23,40 +23,47 @@ namespace Sway_Chopter.Source.Mechanics
         public SpriteFont spriteFont;
         public int score;
         public int highScore;
-        public bool display = false;
+        public bool display = true;
 
         public Score(Viewport vp, ContentManager content)
         {
             viewport = vp;
             spriteFont = content.Load<SpriteFont>("ScoreFont");
-            score = 42;
+            score = 0;
             highScore = getHighScore();
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             //current score
+
             Vector2 size = spriteFont.MeasureString(score.ToString());
-            #region outline
-            spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(GameState.me.viewport.Width * .5f + 3, GameState.me.viewport.Height * .5f), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(GameState.me.viewport.Width * .5f - 3, GameState.me.viewport.Height * .5f), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(GameState.me.viewport.Width * .5f, GameState.me.viewport.Height * .5f + 3), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(GameState.me.viewport.Width * .5f, GameState.me.viewport.Height * .5f - 3), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
-            #endregion
-            spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(GameState.me.viewport.Width * .5f, GameState.me.viewport.Height * .5f), Color.White, 0, size * .5f, 1f, SpriteEffects.None, 0f);
-            // high score
-            size = spriteFont.MeasureString("High score: " + highScore);
+
             if (display)
             {
+                size = spriteFont.MeasureString("High Score: " + highScore);
                 #region outline
-                spriteBatch.DrawString(spriteFont, "High score: " + highScore, new Vector2(GameState.me.viewport.Width * .5f + 3, GameState.me.viewport.Height * .4f), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(spriteFont, "High score: " + highScore, new Vector2(GameState.me.viewport.Width * .5f - 3, GameState.me.viewport.Height * .4f), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(spriteFont, "High score: " + highScore, new Vector2(GameState.me.viewport.Width * .5f, GameState.me.viewport.Height * .4f + 3), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(spriteFont, "High score: " + highScore, new Vector2(GameState.me.viewport.Width * .5f, GameState.me.viewport.Height * .4f - 3), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, "High Score: " + highScore, new Vector2(GameState.me.viewport.Width * .5f + 3, GameState.me.viewport.Height * .4f), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, "High Score: " + highScore, new Vector2(GameState.me.viewport.Width * .5f - 3, GameState.me.viewport.Height * .4f), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, "High Score: " + highScore, new Vector2(GameState.me.viewport.Width * .5f, GameState.me.viewport.Height * .4f + 3), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, "High Score: " + highScore, new Vector2(GameState.me.viewport.Width * .5f, GameState.me.viewport.Height * .4f - 3), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
                 #endregion
 
-                spriteBatch.DrawString(spriteFont, "High score: " + highScore, new Vector2(GameState.me.viewport.Width * .5f, GameState.me.viewport.Height * .4f), Color.White, 0, size * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, "High Score: " + highScore, new Vector2(GameState.me.viewport.Width * .5f, GameState.me.viewport.Height * .4f), Color.White, 0, size * .5f, 1f, SpriteEffects.None, 0f);
             }
+
+            else
+            {   
+                #region outline
+                spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(GameState.me.viewport.Width * .5f + 3, GameState.me.viewport.Height * .5f), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(GameState.me.viewport.Width * .5f - 3, GameState.me.viewport.Height * .5f), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(GameState.me.viewport.Width * .5f, GameState.me.viewport.Height * .5f + 3), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(GameState.me.viewport.Width * .5f, GameState.me.viewport.Height * .5f - 3), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
+                #endregion
+                spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(GameState.me.viewport.Width * .5f, GameState.me.viewport.Height * .5f), Color.White, 0, size * .5f, 1f, SpriteEffects.None, 0f);
+                // high score
+            }
+
         }
 
         public int getHighScore()

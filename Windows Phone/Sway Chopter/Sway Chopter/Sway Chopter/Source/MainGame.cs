@@ -19,10 +19,11 @@ namespace Sway_Chopter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Viewport viewport;
+        public Viewport viewport;
 
         State currentState;
 
+        public static MainGame me;
         public MainGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -33,6 +34,8 @@ namespace Sway_Chopter
 
             // Extend battery life under lock.
             InactiveSleepTime = TimeSpan.FromSeconds(1);
+
+            me = this;
         }
 
         /// <summary>
@@ -68,7 +71,7 @@ namespace Sway_Chopter
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
-            currentState = new GetReady(graphics, Content, viewport);
+            currentState = new Menu(graphics, Content, viewport);
             currentState.Initialize();
 
             base.Initialize();
@@ -119,7 +122,7 @@ namespace Sway_Chopter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.DodgerBlue);
+            GraphicsDevice.Clear(Color.DeepSkyBlue);
 
             // TODO: Add your drawing code here
             currentState.Draw(gameTime, spriteBatch);

@@ -8,22 +8,29 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
+using Sway_Chopter.Source;
+using Sway_Chopter.Source.Mechanics;
 
 namespace Sway_Chopter
 {
     public class GameState : State
     {
         public static GameState me;
-
         public Viewport viewport;
+
+        Score score;
 
         public GameState(GraphicsDeviceManager g, ContentManager c, Viewport v) : base(g, c, v)
         {
             me = this;
+            viewport = v;
+            score = new Score(v, c);
+            score.display = true;
         }
 
         public override void Initialize()
         {
+            score.saveScore();
         }
 
         public override void LoadContent()
@@ -38,6 +45,9 @@ namespace Sway_Chopter
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
+            
+            score.Draw(spriteBatch);
+            
             spriteBatch.End();
         }
     }

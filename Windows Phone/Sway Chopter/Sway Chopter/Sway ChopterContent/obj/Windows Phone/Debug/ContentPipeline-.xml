@@ -10,6 +10,15 @@
       <Output>C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\Character.xnb</Output>
       <Time>2014-08-19T00:22:31.4261355-04:00</Time>
     </Item>
+    <Item>
+      <Source>ScoreFont.spritefont</Source>
+      <Name>ScoreFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\ScoreFont.xnb</Output>
+      <Time>2014-08-19T00:40:12.2426978-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID Null="true" />
