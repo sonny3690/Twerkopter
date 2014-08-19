@@ -19,6 +19,33 @@
       <Output>C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\ScoreFont.xnb</Output>
       <Time>2014-08-19T00:40:12.2426978-04:00</Time>
     </Item>
+    <Item>
+      <Source>btnPlay.png</Source>
+      <Name>btnPlay</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\btnPlay.xnb</Output>
+      <Time>2014-08-19T16:37:21.7217428-04:00</Time>
+    </Item>
+    <Item>
+      <Source>btnRanking.png</Source>
+      <Name>btnRanking</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\btnRanking.xnb</Output>
+      <Time>2014-08-19T16:37:21.7367569-04:00</Time>
+    </Item>
+    <Item>
+      <Source>btnRate.png</Source>
+      <Name>btnRate</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\btnRate.xnb</Output>
+      <Time>2014-08-19T16:37:21.741815-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID Null="true" />

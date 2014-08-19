@@ -21,7 +21,7 @@ namespace Sway_Chopter
         SpriteBatch spriteBatch;
         public Viewport viewport;
 
-        State currentState;
+        public State currentState;
 
         public static MainGame me;
         public MainGame()
@@ -70,7 +70,7 @@ namespace Sway_Chopter
 
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
-
+    
             currentState = new Menu(graphics, Content, viewport);
             currentState.Initialize();
 

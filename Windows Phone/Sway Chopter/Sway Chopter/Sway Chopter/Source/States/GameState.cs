@@ -24,6 +24,10 @@ namespace Sway_Chopter
         {
             me = this;
             viewport = v;
+            int temp = viewport.Width;
+            viewport.Width = viewport.Height;
+            viewport.Height = temp;
+
             score = new Score(v, c);
             score.display = true;
         }
