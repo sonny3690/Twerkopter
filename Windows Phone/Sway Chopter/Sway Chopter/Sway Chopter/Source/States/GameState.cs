@@ -13,10 +13,13 @@ namespace Sway_Chopter
 {
     public class GameState : State
     {
+        public static GameState me;
+
         public Viewport viewport;
 
         public GameState(GraphicsDeviceManager g, ContentManager c, Viewport v) : base(g, c, v)
         {
+            me = this;
         }
 
         public override void Initialize()
