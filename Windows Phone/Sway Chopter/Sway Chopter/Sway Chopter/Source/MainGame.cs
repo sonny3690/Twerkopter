@@ -19,8 +19,9 @@ namespace Sway_Chopter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Viewport viewport;
 
-        public Viewport viewport;
+        State currentState;
 
         public MainGame()
         {
@@ -67,6 +68,9 @@ namespace Sway_Chopter
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
+            currentState = new GetReady(graphics, Content, viewport);
+            currentState.Initialize();
+
             base.Initialize();
         }
 
@@ -80,6 +84,7 @@ namespace Sway_Chopter
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            currentState.LoadContent();
         }
 
         /// <summary>
@@ -103,6 +108,7 @@ namespace Sway_Chopter
                 this.Exit();
 
             // TODO: Add your update logic here
+            currentState = currentState.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -113,9 +119,10 @@ namespace Sway_Chopter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DodgerBlue);
 
             // TODO: Add your drawing code here
+            currentState.Draw(gameTime, spriteBatch);
 
             base.Draw(gameTime);
         }
