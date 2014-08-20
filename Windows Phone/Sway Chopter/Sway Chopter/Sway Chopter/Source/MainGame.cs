@@ -75,7 +75,7 @@ namespace Sway_Chopter
 
             viewport = GraphicsDevice.Viewport;
 
-            currentState = new Menu(graphics, Content, viewport);
+            currentState = new GameState(graphics, Content, viewport);
             currentState.Initialize();
 
             base.Initialize();

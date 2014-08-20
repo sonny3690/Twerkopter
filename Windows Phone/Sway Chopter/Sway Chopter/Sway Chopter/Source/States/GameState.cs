@@ -25,6 +25,19 @@ namespace Sway_Chopter
         public Viewport viewport;
         public SpriteFont spriteFont;
 
+        #region Menu
+        Vector2 ButtonSize;
+        Texture2D btnPlay;
+        Texture2D btnRanking;
+        Texture2D btnRate;
+
+        Vector2 playLocation;
+        Vector2 rankingLocation;
+        Vector2 rateLocation;
+        bool Menu = true;
+        Vector2 Menusize;
+        #endregion
+
         public bool GetReadE = true;
         Vector2 READEsize;
 
@@ -38,6 +51,10 @@ namespace Sway_Chopter
             me = this;
             viewport = v;
 
+            ButtonSize = new Vector2(viewport.Width * 0.34f, viewport.Width * 0.17f);
+            btnPlay = content.Load<Texture2D>("btnPlay");
+            playLocation = new Vector2((viewport.Width - ButtonSize.X) / 2, viewport.Height * 0.6f);
+
             score = new Score(v, c);
             score.display = true;
 
@@ -49,6 +66,7 @@ namespace Sway_Chopter
 
             spriteFont = content.Load<SpriteFont>("ScoreFont");
             READEsize = spriteFont.MeasureString("Get Ready");
+            Menusize = spriteFont.MeasureString("Sway Copter");
         }
 
         public override void Initialize()
@@ -61,66 +79,113 @@ namespace Sway_Chopter
 
         public override State Update(GameTime gameTime)
         {
-            if (GetReadE)
+            if (Menu)
             {
                 TouchCollection touchCollection = TouchPanel.GetState();
                 foreach (TouchLocation tl in touchCollection)
                 {
+                    if (tl.State == TouchLocationState.Pressed)
+                    {
+                        if (new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains((int)tl.Position.X, (int)tl.Position.Y))
+                        {
+                            playLocation.Y += 5;
+                        }
+                    }
+
                     if (tl.State == TouchLocationState.Released)
                     {
-                        GetReadE = false;
+                        if (new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains((int)tl.Position.X, (int)tl.Position.Y))
+                        {
+                            playLocation.Y -= 5;
+                            Menu = false;
+                        }
                     }
                 }
+
                 obstacles.Update(0);
             }
 
-            else //The actual game loop
+            else
             {
-                TouchCollection touchCollection = TouchPanel.GetState();
-                foreach (TouchLocation tl in touchCollection)
+                if (GetReadE)
                 {
-                    if (tl.State == TouchLocationState.Released)
+                    TouchCollection touchCollection = TouchPanel.GetState();
+                    foreach (TouchLocation tl in touchCollection)
                     {
-                        player.TapUpdate();
+                        if (tl.State == TouchLocationState.Released)
+                        {
+                            GetReadE = false;
+                        }
+                    }
+                    obstacles.Update(0);
+                }
+
+                else //The actual game loop
+                {
+                    TouchCollection touchCollection = TouchPanel.GetState();
+                    foreach (TouchLocation tl in touchCollection)
+                    {
+                        if (tl.State == TouchLocationState.Released)
+                        {
+                            player.TapUpdate();
+                        }
+                    }
+                    obstacles.Update(4);
+                    player.Update(gameTime);
+
+                    if (PlayerIsWrecked())
+                    {
+                        GetReadE = true;
                     }
                 }
-                obstacles.Update(4);
-                player.Update(gameTime);
-
-                if (PlayerIsWrecked())
-                {
-                    GetReadE = true;
-                }
             }
-
             return this;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            if (GetReadE)
+            if (Menu)
             {
                 #region outline
-                spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(MainGame.me.viewport.Width * .5f + 3, MainGame.me.viewport.Height * .25f), Color.White, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(MainGame.me.viewport.Width * .5f - 3, MainGame.me.viewport.Height * .25f), Color.White, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f + 3), Color.White, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f - 3), Color.White, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2(MainGame.me.viewport.Width * .5f + 3, MainGame.me.viewport.Height * .25f), Color.Black, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2(MainGame.me.viewport.Width * .5f - 3, MainGame.me.viewport.Height * .25f), Color.Black, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f + 3), Color.Black, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f - 3), Color.Black, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
                 #endregion
 
-                spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f), Color.Green, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f), Color.White, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
+
+                obstacles.Draw(spriteBatch);
+                player.Draw(spriteBatch);
+
+                spriteBatch.Draw(btnPlay, new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y), Color.White);
             }
 
             else
             {
-                score.Draw(spriteBatch);
+                if (GetReadE)
+                {
+                    #region outline
+                    spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(MainGame.me.viewport.Width * .5f + 3, MainGame.me.viewport.Height * .25f), Color.White, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(MainGame.me.viewport.Width * .5f - 3, MainGame.me.viewport.Height * .25f), Color.White, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f + 3), Color.White, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f - 3), Color.White, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
+                    #endregion
+
+                    spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f), Color.Green, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
+                }
+
+                else
+                {
+                    score.Draw(spriteBatch);
+                }
+
+                //From here, draw no matter what
+
+                obstacles.Draw(spriteBatch);
+                player.Draw(spriteBatch);
             }
-
-            //From here, draw no matter what
-
-            obstacles.Draw(spriteBatch);
-            player.Draw(spriteBatch);
-            
             spriteBatch.End();
         }
 
