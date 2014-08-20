@@ -30,8 +30,8 @@ namespace Sway_Chopter.Source.Obstacles
         ContentManager c;
 
         float rotation = 1f;
-        float rotationVelocity = 0.005f;
-        float rotationVelocitysAdder = 0.002f;
+        float rotationVelocity = 0.003f;
+        float rotationVelocitysAdder = 0.001f;
         bool pos = true;
 
         public Obstacles(Viewport vp)
