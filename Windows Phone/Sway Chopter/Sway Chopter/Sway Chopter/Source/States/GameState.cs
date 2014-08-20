@@ -71,6 +71,7 @@ namespace Sway_Chopter
                         GetReadE = false;
                     }
                 }
+                obstacles.Update(0);
             }
 
             else //The actual game loop
@@ -85,6 +86,11 @@ namespace Sway_Chopter
                 }
                 obstacles.Update(4);
                 player.Update(gameTime);
+
+                if (PlayerIsWrecked())
+                {
+                    GetReadE = true;
+                }
             }
 
             return this;
@@ -116,6 +122,36 @@ namespace Sway_Chopter
             player.Draw(spriteBatch);
             
             spriteBatch.End();
+        }
+
+        public bool PlayerIsWrecked()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                if (!obstacles.didPass[i])
+                {
+                    Debug.WriteLine((int)obstacles.WreckingBalls[i].location.X);
+                    if (
+                        new Rectangle(
+                            (int)obstacles.WreckingBalls[i].location.X,
+                            (int)(obstacles.WreckingBalls[i].location.Y + obstacles.WreckingBalls[i].size.Y / 2),
+                            (int)obstacles.WreckingBalls[i].size.X,
+                            (int)obstacles.WreckingBalls[i].size.Y / 2
+                            ).Intersects(
+                                new Rectangle(
+                                        (int)(player.location.X + player.size.X / 4),
+                                        (int)player.location.Y,
+                                        (int)player.size.X / 2,
+                                        (int)player.size.Y / 3
+                                    )
+                                ))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }

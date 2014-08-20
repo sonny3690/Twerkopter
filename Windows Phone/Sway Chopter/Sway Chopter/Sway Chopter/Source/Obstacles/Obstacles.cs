@@ -30,8 +30,8 @@ namespace Sway_Chopter.Source.Obstacles
         ContentManager c;
 
         float rotation = 1f;
-        float rotationVelocity = 0.01f;
-        float rotationVelocitysAdder = 0.005f;
+        float rotationVelocity = 0.005f;
+        float rotationVelocitysAdder = 0.002f;
         bool pos = true;
 
         public Obstacles(Viewport vp)
@@ -137,9 +137,9 @@ namespace Sway_Chopter.Source.Obstacles
 
             if (pos)
             {
-                if (rotation >= .75f)
+                if (rotation >= .7f)
                 {
-                    rotationVelocity = 0.01f;
+                    rotationVelocity = 0.05f;
                     pos = false;
                 }
                 rotation += rotationVelocity;
@@ -148,9 +148,9 @@ namespace Sway_Chopter.Source.Obstacles
 
             else
             {
-                if (rotation <= -.75f)
+                if (rotation <= -.7f)
                 {
-                    rotationVelocity = 0.01f;
+                    rotationVelocity = 0.05f;
                     pos = true;
                 }
                 rotation -= rotationVelocity;
