@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 using Sway_Chopter.Source;
 using Sway_Chopter.Source.Mechanics;
+using Sway_Chopter.Source.Player;
 
 namespace Sway_Chopter
 {
@@ -28,6 +29,8 @@ namespace Sway_Chopter
 
         Score score;
 
+        Player player;
+
         public GameState(GraphicsDeviceManager g, ContentManager c, Viewport v) : base(g, c, v)
         {
             me = this;
@@ -35,6 +38,9 @@ namespace Sway_Chopter
 
             score = new Score(v, c);
             score.display = true;
+
+            player = new Player(v);
+            player.LoadContent(c);
 
             spriteFont = content.Load<SpriteFont>("ScoreFont");
             READEsize = spriteFont.MeasureString("Get Ready");
@@ -64,7 +70,15 @@ namespace Sway_Chopter
 
             else //The actual game loop
             {
-
+                TouchCollection touchCollection = TouchPanel.GetState();
+                foreach (TouchLocation tl in touchCollection)
+                {
+                    if (tl.State == TouchLocationState.Released)
+                    {
+                        player.TapUpdate();
+                    }
+                }
+                player.Update(gameTime);
             }
 
             return this;
@@ -89,6 +103,10 @@ namespace Sway_Chopter
             {
                 score.Draw(spriteBatch);
             }
+
+            //From here, draw no matter what
+            player.Draw(spriteBatch);
+
             spriteBatch.End();
         }
     }

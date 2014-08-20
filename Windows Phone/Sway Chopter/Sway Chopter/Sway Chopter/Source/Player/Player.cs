@@ -1,0 +1,113 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Resources;
+using System.Diagnostics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
+
+namespace Sway_Chopter.Source.Player
+{
+    public class Player
+    {
+        Texture2D texture;
+        Rectangle src;
+        bool flip;
+        Vector2 location;
+        Vector2 size;
+
+        Viewport viewport;
+        public bool prevTapState = false;
+
+        float timer = 0f;
+        public int side = 0;
+
+        float animationtimer = 0f;
+        float durationTimer = 25f;
+        int frames = 0;
+
+        public Player(Viewport vp)
+        {
+            Initialize(vp);
+        }
+
+        private void Initialize(Viewport vp)
+        {
+            viewport = vp;
+
+            size = new Vector2(viewport.Width * 0.35f);
+
+            float xSize = viewport.Width * 0.25f;
+            float sizeY = xSize * 1.56f;
+
+            location.Y = viewport.Height - (size.Y * 1.5f);
+            location.X = (viewport.Width - size.X) / 2;
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+            texture = content.Load<Texture2D>(@"Character");
+            src = new Rectangle(0, 0, 32, 32);
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            animationtimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (animationtimer > durationTimer)
+            {
+                frames++;
+                if (frames >= 1)
+                {
+                    frames = 0;
+                }
+                animationtimer = 0;
+            }
+            src = new Rectangle(32 * frames, 0, 32, 32);
+            
+            if (!flip)
+            {
+                if (location.X <= (viewport.Width - size.X))
+                    location.X += 1;
+            }
+
+            else
+            {
+                if (location.X >= 0)
+                    location.X -= 1;
+            }
+        }
+
+        public void Draw(SpriteBatch spritebatch)
+        {
+            SpriteEffects fx = flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            spritebatch.Draw(texture, new Rectangle((int)location.X, (int)location.Y, (int)size.X, (int)size.Y), src, Color.White, 0f, Vector2.Zero, fx, 0f);
+        }
+
+        public void TapUpdate()
+        {
+            if (timer > .1f)
+            {
+                if (flip)
+                {
+                    src.X = 0;
+                    flip = false;
+                    side = 0;
+                }
+
+                else
+                {
+                    src.X = 0;
+                    flip = true;
+                    side = 1;
+                }
+
+                prevTapState = false;
+                timer = 0;
+            }
+        }
+    }
+}

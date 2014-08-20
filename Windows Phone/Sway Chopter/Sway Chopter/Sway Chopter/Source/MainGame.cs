@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
+using Sway_Chopter.Source.Mechanics;
+using Sway_Chopter.Source.Player;
 
 namespace Sway_Chopter
 {
