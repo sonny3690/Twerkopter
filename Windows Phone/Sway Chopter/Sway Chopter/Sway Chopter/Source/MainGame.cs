@@ -126,7 +126,7 @@ namespace Sway_Chopter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.DeepSkyBlue);
+            GraphicsDevice.Clear(Color.DimGray);
 
             // TODO: Add your drawing code here
             currentState.Draw(gameTime, spriteBatch);

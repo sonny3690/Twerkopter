@@ -47,6 +47,11 @@ namespace Sway_Chopter
         Vector2 GameOverSize;
         #endregion
 
+        #region Platform
+        Texture2D platform;
+        Rectangle platformRect;
+        #endregion
+
         public bool GetReadE = true;
         Vector2 READEsize;
 
@@ -81,7 +86,7 @@ namespace Sway_Chopter
             GameOverLocation = new Vector2((viewport.Width - spriteFont.MeasureString("Game Over").X) / 2, -GameOverSize.Y);
            
             Scoreboard = content.Load<Texture2D>("Dashboard");
-            ScoreboardSize = new Vector2(viewport.Width * .9f, viewport.Width * 0.421875f);
+            ScoreboardSize = new Vector2(viewport.Width * .9f, viewport.Width * 0.545625f);
             ScoreboardLocation = new Vector2((viewport.Width - ScoreboardSize.X) / 2, viewport.Height);
         }
 
