@@ -28,6 +28,17 @@ namespace Sway_Chopter.Source.Player
         float durationTimer = 25f;
         int frames = 0;
 
+        double x;
+        double y;
+        double speed;
+        double velocity;
+        double accel = ACCEL_RATE;
+
+        const double ACCEL_RATE = 0.05;
+        const double VERT_SPEED = 1;
+        const int ssize = 2;
+        const int chainLength = 4;
+
         public Player(Viewport vp)
         {
             Initialize(vp);
@@ -71,14 +82,29 @@ namespace Sway_Chopter.Source.Player
             if (!flip)
             {
                 if (location.X <= (viewport.Width - size.X))
-                    location.X += 1;
+                {
+                    velocity += accel;
+                    speed += velocity;
+                    x += speed;
+                }
             }
 
             else
             {
                 if (location.X >= 0)
-                    location.X -= 1;
+                {
+                    velocity += accel;
+                    speed += velocity;
+                    x -= speed;
+                }
             }
+            
+
+            //y += VERT_SPEED;                
+
+            
+
+            location.X = (float)x;
         }
 
         public void Draw(SpriteBatch spritebatch)
@@ -107,6 +133,9 @@ namespace Sway_Chopter.Source.Player
 
                 prevTapState = false;
                 timer = 0;
+
+                velocity = 0;
+                speed = 0;
             }
         }
     }
