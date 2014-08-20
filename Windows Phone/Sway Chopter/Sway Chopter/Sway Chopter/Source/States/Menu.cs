@@ -12,6 +12,10 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
+using Sway_Chopter.Source;
+using Sway_Chopter.Source.Mechanics;
+using Sway_Chopter.Source.Player;
+using Sway_Chopter.Source.Obstacles;
 
 namespace Sway_Chopter
 {
@@ -29,6 +33,9 @@ namespace Sway_Chopter
         Vector2 rankingLocation;
         Vector2 rateLocation;
 
+        Player player;
+        Obstacles obstacles;
+
         public Menu(GraphicsDeviceManager g, ContentManager c, Viewport v) : base(g, c, v)
         {
             viewport = v;
@@ -40,7 +47,11 @@ namespace Sway_Chopter
             btnPlay = content.Load<Texture2D>("btnPlay");
             playLocation = new Vector2((viewport.Width - ButtonSize.X) / 2, viewport.Height * 0.6f);
 
-            
+            player = new Player(v);
+            player.LoadContent(c);
+
+            obstacles = new Obstacles(viewport);
+            obstacles.LoadContent(content);            
         }
 
         public override State Update(GameTime gameTime)
@@ -68,6 +79,7 @@ namespace Sway_Chopter
                 }
             }
 
+            obstacles.Update(0);
             return this;
         }
 
@@ -84,6 +96,9 @@ namespace Sway_Chopter
             #endregion
 
             spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f), Color.White, 0, size * .5f, 1f, SpriteEffects.None, 0f);
+
+            obstacles.Draw(spriteBatch);
+            player.Draw(spriteBatch);
 
             spriteBatch.Draw(btnPlay, new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y), Color.White);
 
