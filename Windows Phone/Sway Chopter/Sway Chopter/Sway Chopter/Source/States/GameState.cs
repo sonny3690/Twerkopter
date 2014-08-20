@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework.Media;
 using Sway_Chopter.Source;
 using Sway_Chopter.Source.Mechanics;
 using Sway_Chopter.Source.Player;
+using Sway_Chopter.Source.Obstacles;
 
 namespace Sway_Chopter
 {
@@ -30,6 +31,7 @@ namespace Sway_Chopter
         Score score;
 
         Player player;
+        Obstacles obstacles;
 
         public GameState(GraphicsDeviceManager g, ContentManager c, Viewport v) : base(g, c, v)
         {
@@ -41,6 +43,9 @@ namespace Sway_Chopter
 
             player = new Player(v);
             player.LoadContent(c);
+
+            obstacles = new Obstacles(viewport);
+            obstacles.LoadContent(content);
 
             spriteFont = content.Load<SpriteFont>("ScoreFont");
             READEsize = spriteFont.MeasureString("Get Ready");
@@ -78,6 +83,7 @@ namespace Sway_Chopter
                         player.TapUpdate();
                     }
                 }
+                obstacles.Update(4);
                 player.Update(gameTime);
             }
 
@@ -105,8 +111,10 @@ namespace Sway_Chopter
             }
 
             //From here, draw no matter what
-            player.Draw(spriteBatch);
 
+            obstacles.Draw(spriteBatch);
+            player.Draw(spriteBatch);
+            
             spriteBatch.End();
         }
     }

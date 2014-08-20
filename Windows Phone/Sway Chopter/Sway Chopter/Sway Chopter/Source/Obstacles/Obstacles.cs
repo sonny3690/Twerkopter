@@ -32,17 +32,24 @@ namespace Sway_Chopter.Source.Obstacles
         {
             viewport = vp;
 
-            size = new Vector2(viewport.Width * 0.35f, viewport.Width * 0.021875f);
+            size = new Vector2(viewport.Width, viewport.Width * 0.0625f);
             r = new Random();
 
-            Vector2 vc1 = new Vector2(r.Next((int)(viewport.Width / 4), (int)(viewport.Width * 0.6f)), viewport.Height / 2);
+            textures = new List<Texture2D>();
+            locations = new List<Vector2>();
+
+            Vector2 vc1 = new Vector2(r.Next((int)(viewport.Width / 4), (int)(viewport.Width * 0.6f)) - size.X, viewport.Height / 2);
             Vector2 vc2 = new Vector2(vc1.X + size.X + (viewport.Width / 7), vc1.Y);
             locations.Add(vc1);
             locations.Add(vc2);
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 2; i < 7; i++)
             {
-                //add the locations
+                Vector2 vc3 = new Vector2(r.Next((int)(viewport.Width / 4), (int)(viewport.Width * 0.6f)) - size.X, locations[locations.Count - 2].Y - (size.Y * 14));
+                Vector2 vc4 = new Vector2(vc3.X + size.X + (viewport.Width / 3), locations[locations.Count - 2].Y - (size.Y * 14));
+
+                locations.Add(vc3);
+                locations.Add(vc4);
             }
         }
 
@@ -50,6 +57,12 @@ namespace Sway_Chopter.Source.Obstacles
         {
             left = content.Load<Texture2D>("Steel Beam Left");
             right = content.Load<Texture2D>("Steel Beam");
+
+            for (int i = 0; i < 7; i++)
+            {
+                textures.Add(left);
+                textures.Add(right);
+            }
         }
 
         public void Update(int number)
@@ -58,10 +71,26 @@ namespace Sway_Chopter.Source.Obstacles
             {
                 locations[i] = new Vector2(locations[i].X, locations[i].Y + number);
             }
+
+            if (locations[0].Y > viewport.Height)
+            {
+                locations.RemoveAt(0);
+                locations.RemoveAt(0);
+
+                Vector2 vc3 = new Vector2(r.Next((int)(viewport.Width / 4), (int)(viewport.Width * 0.6f)) - size.X, locations[locations.Count - 2].Y - (size.Y * 14));
+                Vector2 vc4 = new Vector2(vc3.X + size.X + (viewport.Width / 3), locations[locations.Count - 2].Y - (size.Y * 14));
+
+                locations.Add(vc3);
+                locations.Add(vc4);
+            }
         }
 
         public void Draw(SpriteBatch spritebatch)
         {
+            for (int i = 0; i < 9; i++)
+            {
+                spritebatch.Draw(textures[i], new Rectangle((int)locations[i].X, (int)locations[i].Y, (int)size.X, (int)size.Y), Color.White);
+            }
         }
     }
 }

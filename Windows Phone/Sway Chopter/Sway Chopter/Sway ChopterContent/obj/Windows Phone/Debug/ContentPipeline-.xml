@@ -46,6 +46,24 @@
       <Output>C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\btnRate.xnb</Output>
       <Time>2014-08-19T16:37:21.741815-04:00</Time>
     </Item>
+    <Item>
+      <Source>Steel Beam.png</Source>
+      <Name>Steel Beam</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\Steel Beam.xnb</Output>
+      <Time>2014-08-19T23:39:00.845937-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Steel Beam Left.png</Source>
+      <Name>Steel Beam Left</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\Steel Beam Left.xnb</Output>
+      <Time>2014-08-20T00:24:31.1425783-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID Null="true" />
