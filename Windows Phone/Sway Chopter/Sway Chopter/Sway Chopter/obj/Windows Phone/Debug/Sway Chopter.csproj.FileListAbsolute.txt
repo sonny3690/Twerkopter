@@ -34,3 +34,4 @@ C:\Users\Trevor\Documents\GitHub\sway-chopter\Sway-Chopter\Windows Phone\Sway Ch
 C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\Steel Beam.xnb
 C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\Steel Beam Left.xnb
 C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\Wrecking Ball.xnb
+C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\MileyCyrus.xnb

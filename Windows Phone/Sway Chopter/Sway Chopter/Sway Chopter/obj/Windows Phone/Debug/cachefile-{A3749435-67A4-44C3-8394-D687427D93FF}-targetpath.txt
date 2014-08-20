@@ -6,3 +6,4 @@ Content\btnRate.xnb
 Content\Steel Beam.xnb
 Content\Steel Beam Left.xnb
 Content\Wrecking Ball.xnb
+Content\MileyCyrus.xnb

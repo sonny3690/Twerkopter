@@ -14,8 +14,8 @@ namespace Sway_Chopter.Source.Obstacles
     {
         List<Texture2D> textures;
         List<Vector2> locations;
-        List<WreckingBall> WreckingBalls;
-        List<bool> didPass;
+        public List<WreckingBall> WreckingBalls;
+        public List<bool> didPass;
 
         bool flip;
         Vector2 size;
@@ -66,8 +66,8 @@ namespace Sway_Chopter.Source.Obstacles
                 textures.Add(right);
             }
 
-            Vector2 vc1 = new Vector2(r.Next((int)(viewport.Width / 4), (int)(viewport.Width * 0.6f)) - size.X, size.Y * 3);
-            Vector2 vc2 = new Vector2(vc1.X + size.X + (viewport.Width / 7), vc1.Y);
+            Vector2 vc1 = new Vector2(r.Next((int)(viewport.Width / 20), (int)(viewport.Width * 0.4f)) - size.X, size.Y * 3);
+            Vector2 vc2 = new Vector2(vc1.X + size.X + (viewport.Width * 0.6f), vc1.Y);
             locations.Add(vc1);
 
             locations.Add(vc2);
@@ -79,8 +79,8 @@ namespace Sway_Chopter.Source.Obstacles
 
             for (int i = 2; i < 7; i++)
             {
-                Vector2 vc3 = new Vector2(r.Next((int)(viewport.Width / 8), (int)(viewport.Width * 0.475f)) - size.X, locations[locations.Count - 2].Y - (size.Y * 14));
-                Vector2 vc4 = new Vector2(vc3.X + size.X + (viewport.Width / 2), locations[locations.Count - 2].Y - (size.Y * 14));
+                Vector2 vc3 = new Vector2(r.Next((int)(viewport.Width / 20), (int)(viewport.Width * 0.4f)) - size.X, locations[locations.Count - 2].Y - (size.Y * 16));
+                Vector2 vc4 = new Vector2(vc3.X + size.X + (viewport.Width * 0.6f), locations[locations.Count - 2].Y - (size.Y * 16));
 
                 locations.Add(vc3);
                 locations.Add(vc4);
@@ -116,8 +116,8 @@ namespace Sway_Chopter.Source.Obstacles
                 locations.RemoveAt(0);
                 locations.RemoveAt(0);
 
-                Vector2 vc3 = new Vector2(r.Next((int)(viewport.Width / 8), (int)(viewport.Width * 0.475f)) - size.X, locations[locations.Count - 2].Y - (size.Y * 14));
-                Vector2 vc4 = new Vector2(vc3.X + size.X + (viewport.Width / 2), locations[locations.Count - 2].Y - (size.Y * 14));
+                Vector2 vc3 = new Vector2(r.Next((int)(viewport.Width / 20), (int)(viewport.Width * 0.4f)) - size.X, locations[locations.Count - 2].Y - (size.Y * 16));
+                Vector2 vc4 = new Vector2(vc3.X + size.X + (viewport.Width * 0.6f), locations[locations.Count - 2].Y - (size.Y * 16));
 
                 locations.Add(vc3);
                 locations.Add(vc4);
@@ -137,7 +137,7 @@ namespace Sway_Chopter.Source.Obstacles
 
             if (pos)
             {
-                if (rotation >= 1f)
+                if (rotation >= .75f)
                 {
                     rotationVelocity = 0.01f;
                     pos = false;
@@ -148,7 +148,7 @@ namespace Sway_Chopter.Source.Obstacles
 
             else
             {
-                if (rotation <= -1f)
+                if (rotation <= -.75f)
                 {
                     rotationVelocity = 0.01f;
                     pos = true;

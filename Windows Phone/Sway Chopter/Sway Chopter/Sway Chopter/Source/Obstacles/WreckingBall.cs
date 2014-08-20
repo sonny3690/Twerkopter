@@ -13,10 +13,10 @@ namespace Sway_Chopter.Source.Obstacles
     public class WreckingBall
     {
         Texture2D texture;
-        Vector2 location;
+        public Vector2 location;
 
         bool flip;
-        Vector2 size;
+        public Vector2 size;
 
         Viewport viewport;
 
@@ -42,7 +42,7 @@ namespace Sway_Chopter.Source.Obstacles
         {
             viewport = vp;
 
-            size = new Vector2(viewport.Width / 8, viewport.Width / 4);
+            size = new Vector2(viewport.Width / 8, (viewport.Width / 8) * 1.640625f);
 
             if (side == 1)
             {

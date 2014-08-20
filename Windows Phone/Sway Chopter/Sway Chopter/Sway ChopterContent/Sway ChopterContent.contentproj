@@ -76,6 +76,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MileyCyrus.png">
+      <Name>MileyCyrus</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Wrecking Ball.png">
       <Name>Wrecking Ball</Name>
       <Importer>TextureImporter</Importer>

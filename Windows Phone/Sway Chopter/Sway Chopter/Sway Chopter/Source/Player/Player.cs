@@ -15,8 +15,8 @@ namespace Sway_Chopter.Source.Player
         Texture2D texture;
         Rectangle src;
         bool flip;
-        Vector2 location;
-        Vector2 size;
+        public Vector2 location;
+        public Vector2 size;
 
         Viewport viewport;
         public bool prevTapState = false;
@@ -48,19 +48,18 @@ namespace Sway_Chopter.Source.Player
         {
             viewport = vp;
 
-            size = new Vector2(viewport.Width * 0.35f);
+            size = new Vector2(viewport.Width * 0.25f, viewport.Width * 0.25f  * 3.061538461538462f);
 
             float xSize = viewport.Width * 0.25f;
             float sizeY = xSize * 1.56f;
 
-            location.Y = viewport.Height - (size.Y * 1.5f);
+            location.Y = viewport.Height - (size.Y * 0.7f);
             location.X = (viewport.Width - size.X) / 2;
         }
 
         public void LoadContent(ContentManager content)
         {
-            texture = content.Load<Texture2D>(@"Character");
-            src = new Rectangle(0, 0, 32, 32);
+            texture = content.Load<Texture2D>(@"MileyCyrus");
         }
 
         public void Update(GameTime gameTime)
@@ -110,7 +109,7 @@ namespace Sway_Chopter.Source.Player
         public void Draw(SpriteBatch spritebatch)
         {
             SpriteEffects fx = flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            spritebatch.Draw(texture, new Rectangle((int)location.X, (int)location.Y, (int)size.X, (int)size.Y), src, Color.White, 0f, Vector2.Zero, fx, 0f);
+            spritebatch.Draw(texture, new Rectangle((int)location.X, (int)location.Y, (int)size.X, (int)size.Y), null, Color.White, 0f, Vector2.Zero, fx, 0f);
         }
 
         public void TapUpdate()
