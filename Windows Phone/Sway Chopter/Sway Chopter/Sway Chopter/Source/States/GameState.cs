@@ -42,8 +42,8 @@ namespace Sway_Chopter
         Texture2D Scoreboard;
         Vector2 ScoreboardLocation;
         Vector2 ScoreboardSize;
-        Vector2 DestScoreboard;
         bool IsGameOver = true;
+        Vector2 GameOverLocation;
         Vector2 GameOverSize;
         #endregion
 
@@ -76,10 +76,12 @@ namespace Sway_Chopter
             spriteFont = content.Load<SpriteFont>("ScoreFont");
             READEsize = spriteFont.MeasureString("Get Ready");
             Menusize = spriteFont.MeasureString("Sway Copter");
-
+            GameOverSize = spriteFont.MeasureString("Game Over");
+            
+            GameOverLocation = new Vector2((viewport.Width - spriteFont.MeasureString("Game Over").X) / 2, -GameOverSize.Y);
+           
             Scoreboard = content.Load<Texture2D>("Dashboard");
-            ScoreboardSize = new Vector2(viewport.Width * 7f, viewport.Width * 0.328125f);
-            DestScoreboard = new Vector2((viewport.Width - ScoreboardSize.X) / 2, viewport.Height / 2);
+            ScoreboardSize = new Vector2(viewport.Width * .9f, viewport.Width * 0.421875f);
             ScoreboardLocation = new Vector2((viewport.Width - ScoreboardSize.X) / 2, viewport.Height);
         }
 
@@ -112,6 +114,8 @@ namespace Sway_Chopter
                         {
                             playLocation.Y -= 5;
                             Menu = false;
+                            IsGameOver = false;
+                            GetReadE = true;
                         }
                     }
                 }
@@ -136,20 +140,65 @@ namespace Sway_Chopter
 
                 else //The actual game loop
                 {
-                    TouchCollection touchCollection = TouchPanel.GetState();
-                    foreach (TouchLocation tl in touchCollection)
+                    if (IsGameOver)
                     {
-                        if (tl.State == TouchLocationState.Released)
-                        {
-                            player.TapUpdate();
-                        }
-                    }
-                    obstacles.Update(4);
-                    player.Update(gameTime);
+                        GameOverLocation.Y = TransitionY((viewport.Height / 30), viewport.Height / 4, GameOverLocation.Y);
+                        ScoreboardLocation.Y = TransitionY(-(viewport.Height / 30), GameOverLocation.Y + GameOverSize.Y + viewport.Height / 20, ScoreboardLocation.Y);
+                        playLocation.Y = ScoreboardLocation.Y + ScoreboardSize.Y + viewport.Height / 20;
 
-                    if (PlayerIsWrecked())
+                        TouchCollection touchCollection = TouchPanel.GetState();
+                        foreach (TouchLocation tl in touchCollection)
+                        {
+                            if (tl.State == TouchLocationState.Pressed)
+                            {
+                                if (new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains((int)tl.Position.X, (int)tl.Position.Y))
+                                {
+                                    playLocation.Y += 5;
+                                }
+                            }
+
+                            if (tl.State == TouchLocationState.Released)
+                            {
+                                if (new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains((int)tl.Position.X, (int)tl.Position.Y))
+                                {
+                                    playLocation.Y -= 5;
+
+                                    player = new Player(viewport);
+                                    player.LoadContent(content);
+
+                                    obstacles = new Obstacles(viewport);
+                                    obstacles.LoadContent(content);
+
+                                    score.score = 0;
+
+                                    Menu = false;
+                                    IsGameOver = false;
+                                    GetReadE = true;
+                                }
+                            }
+                        }
+
+                        obstacles.Update(0);
+                    }
+
+                    else
                     {
-                        GetReadE = true;
+                        TouchCollection touchCollection = TouchPanel.GetState();
+                        foreach (TouchLocation tl in touchCollection)
+                        {
+                            if (tl.State == TouchLocationState.Released)
+                            {
+                                player.TapUpdate();
+                            }
+                        }
+                        obstacles.Update(4);
+                        player.Update(gameTime);
+
+                        if (PlayerIsWrecked())
+                        {
+                            IsGameOver = true;
+                            score.saveScore();
+                        }
                     }
                 }
             }
@@ -159,6 +208,9 @@ namespace Sway_Chopter
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
+
+            obstacles.Draw(spriteBatch);
+            player.Draw(spriteBatch);
             if (Menu)
             {
                 #region outline
@@ -169,9 +221,6 @@ namespace Sway_Chopter
                 #endregion
 
                 spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f), Color.White, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
-
-                obstacles.Draw(spriteBatch);
-                player.Draw(spriteBatch);
 
                 spriteBatch.Draw(btnPlay, new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y), Color.White);
             }
@@ -192,13 +241,26 @@ namespace Sway_Chopter
 
                 else
                 {
-                    score.Draw(spriteBatch);
+                    if (IsGameOver)
+                    {
+                        #region outline
+                        spriteBatch.DrawString(spriteFont, "Game Over", new Vector2(GameOverLocation.X + 3, GameOverLocation.Y), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                        spriteBatch.DrawString(spriteFont, "Game Over", new Vector2(GameOverLocation.X - 3, GameOverLocation.Y), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                        spriteBatch.DrawString(spriteFont, "Game Over", new Vector2(GameOverLocation.X, GameOverLocation.Y + 3), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                        spriteBatch.DrawString(spriteFont, "Game Over", new Vector2(GameOverLocation.X, GameOverLocation.Y - 3), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                        #endregion
+
+                        spriteBatch.DrawString(spriteFont, "Game Over", GameOverLocation, Color.Orange, 0, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+                        spriteBatch.Draw(Scoreboard, new Rectangle((int)ScoreboardLocation.X, (int)ScoreboardLocation.Y, (int)ScoreboardSize.X, (int)ScoreboardSize.Y), Color.White);
+                        spriteBatch.Draw(btnPlay, new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y), Color.White);
+                    }
+
+                    else
+                    {
+                        score.Draw(spriteBatch);
+                    }
                 }
-
-                //From here, draw no matter what
-
-                obstacles.Draw(spriteBatch);
-                player.Draw(spriteBatch);
             }
             spriteBatch.End();
         }
@@ -230,6 +292,29 @@ namespace Sway_Chopter
             }
 
             return false;
+        }
+
+        public float TransitionY(float rate, float destinationY, float Y)
+        {
+            if (rate > 0)
+            {
+                if (Y < destinationY)
+                {
+                    Y += rate;
+                    return Y;
+                }
+            }
+
+            else if (rate < 0)
+            {
+                if (Y > destinationY)
+                {
+                    Y += rate;
+                    return Y;
+                }
+            }
+
+            return Y;
         }
     }
 }

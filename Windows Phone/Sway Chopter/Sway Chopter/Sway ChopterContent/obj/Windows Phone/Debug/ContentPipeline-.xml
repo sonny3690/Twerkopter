@@ -82,6 +82,15 @@
       <Output>C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\MileyCyrus.xnb</Output>
       <Time>2014-08-20T11:12:11.8821673-04:00</Time>
     </Item>
+    <Item>
+      <Source>Dashboard.png</Source>
+      <Name>Dashboard</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\Dashboard.xnb</Output>
+      <Time>2014-08-20T12:55:42.4159521-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID Null="true" />
