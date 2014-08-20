@@ -1,1 +1,2 @@
 C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway ChopterContent\obj\Windows Phone\Debug\Sway ChopterContent.contentprojResolveAssemblyReference.cache
+C:\Users\Trevor\Documents\GitHub\sway-chopter\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway ChopterContent\obj\Windows Phone\Debug\Sway ChopterContent.contentprojResolveAssemblyReference.cache

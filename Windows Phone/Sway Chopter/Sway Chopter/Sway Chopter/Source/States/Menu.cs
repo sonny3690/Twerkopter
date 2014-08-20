@@ -19,7 +19,6 @@ namespace Sway_Chopter
     {
         Viewport viewport;
         public SpriteFont spriteFont;
-        Vector2 size;
 
         Vector2 ButtonSize;
         Texture2D btnPlay;
@@ -78,17 +77,17 @@ namespace Sway_Chopter
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            size = spriteFont.MeasureString("Sway Chopter");
+            Vector2 size = spriteFont.MeasureString("Sway Chopter");
             spriteBatch.Begin();
             
             #region outline
-            spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2((MainGame.me.viewport.Width - size.X) * .5f + 3, MainGame.me.viewport.Height * .4f), Color.Black, 0, new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2((MainGame.me.viewport.Width - size.X) * .5f - 3, MainGame.me.viewport.Height * .4f), Color.Black, 0, new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2((MainGame.me.viewport.Width - size.X) * .5f, MainGame.me.viewport.Height * .4f + 3), Color.Black, 0, new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2((MainGame.me.viewport.Width - size.X) * .5f, MainGame.me.viewport.Height * .4f - 3), Color.Black, 0, new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2(MainGame.me.viewport.Width * .5f + 3, MainGame.me.viewport.Height * .4f), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2(MainGame.me.viewport.Width * .5f - 3, MainGame.me.viewport.Height * .4f), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .4f + 3), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .4f - 3), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
             #endregion
 
-            spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2((MainGame.me.viewport.Width - size.X) * .5f, MainGame.me.viewport.Height * .4f), Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(spriteFont, "Sway Chopter", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .4f), Color.White, 0, size * .5f, 1f, SpriteEffects.None, 0f);
 
             spriteBatch.Draw(btnPlay, new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y), Color.White);
 
