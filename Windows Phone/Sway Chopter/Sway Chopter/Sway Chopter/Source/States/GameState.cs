@@ -28,7 +28,7 @@ namespace Sway_Chopter
         public bool GetReadE = true;
         Vector2 READEsize;
 
-        Score score;
+        public Score score;
 
         Player player;
         Obstacles obstacles;

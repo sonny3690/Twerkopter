@@ -14,11 +14,14 @@ namespace Sway_Chopter.Source.Obstacles
     {
         List<Texture2D> textures;
         List<Vector2> locations;
-        Rectangle src;
+        List<bool> didPass;
+
         bool flip;
         Vector2 size;
         Texture2D left;
         Texture2D right;
+
+        float passPoint;
 
         Viewport viewport;
 
@@ -32,24 +35,33 @@ namespace Sway_Chopter.Source.Obstacles
         {
             viewport = vp;
 
+            passPoint = viewport.Height - (viewport.Width * 0.25f * 1.56f * 1.5f);
+
             size = new Vector2(viewport.Width, viewport.Width * 0.0625f);
             r = new Random();
 
             textures = new List<Texture2D>();
             locations = new List<Vector2>();
+            didPass = new List<Boolean>();
 
-            Vector2 vc1 = new Vector2(r.Next((int)(viewport.Width / 4), (int)(viewport.Width * 0.6f)) - size.X, viewport.Height / 2);
+            Vector2 vc1 = new Vector2(r.Next((int)(viewport.Width / 4), (int)(viewport.Width * 0.6f)) - size.X, size.Y * 3);
             Vector2 vc2 = new Vector2(vc1.X + size.X + (viewport.Width / 7), vc1.Y);
             locations.Add(vc1);
             locations.Add(vc2);
 
+            didPass.Add(false);
+            didPass.Add(false);
+
             for (int i = 2; i < 7; i++)
             {
-                Vector2 vc3 = new Vector2(r.Next((int)(viewport.Width / 4), (int)(viewport.Width * 0.6f)) - size.X, locations[locations.Count - 2].Y - (size.Y * 14));
-                Vector2 vc4 = new Vector2(vc3.X + size.X + (viewport.Width / 3), locations[locations.Count - 2].Y - (size.Y * 14));
+                Vector2 vc3 = new Vector2(r.Next((int)(viewport.Width / 8), (int)(viewport.Width * 0.475f)) - size.X, locations[locations.Count - 2].Y - (size.Y * 14));
+                Vector2 vc4 = new Vector2(vc3.X + size.X + (viewport.Width / 2), locations[locations.Count - 2].Y - (size.Y * 14));
 
                 locations.Add(vc3);
                 locations.Add(vc4);
+
+                didPass.Add(false);
+                didPass.Add(false);
             }
         }
 
@@ -72,16 +84,32 @@ namespace Sway_Chopter.Source.Obstacles
                 locations[i] = new Vector2(locations[i].X, locations[i].Y + number);
             }
 
+            if (!didPass[0])
+            {
+            if (locations[0].Y > passPoint)
+            {
+                GameState.me.score.score++;
+                didPass[0] = true;
+                didPass[1] = true;
+            }
+                }
+
             if (locations[0].Y > viewport.Height)
             {
                 locations.RemoveAt(0);
                 locations.RemoveAt(0);
 
-                Vector2 vc3 = new Vector2(r.Next((int)(viewport.Width / 4), (int)(viewport.Width * 0.6f)) - size.X, locations[locations.Count - 2].Y - (size.Y * 14));
-                Vector2 vc4 = new Vector2(vc3.X + size.X + (viewport.Width / 3), locations[locations.Count - 2].Y - (size.Y * 14));
+                Vector2 vc3 = new Vector2(r.Next((int)(viewport.Width / 8), (int)(viewport.Width * 0.475f)) - size.X, locations[locations.Count - 2].Y - (size.Y * 14));
+                Vector2 vc4 = new Vector2(vc3.X + size.X + (viewport.Width / 2), locations[locations.Count - 2].Y - (size.Y * 14));
 
                 locations.Add(vc3);
                 locations.Add(vc4);
+
+                didPass.RemoveAt(0);
+                didPass.RemoveAt(0);
+
+                didPass.Add(false);
+                didPass.Add(false);
             }
         }
 
