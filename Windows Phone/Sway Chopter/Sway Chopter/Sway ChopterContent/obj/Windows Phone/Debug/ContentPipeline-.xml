@@ -64,6 +64,15 @@
       <Output>C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\Steel Beam Left.xnb</Output>
       <Time>2014-08-20T00:24:31.1425783-04:00</Time>
     </Item>
+    <Item>
+      <Source>Wrecking Ball.png</Source>
+      <Name>Wrecking Ball</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\Wrecking Ball.xnb</Output>
+      <Time>2014-08-20T09:55:14.3386506-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID Null="true" />

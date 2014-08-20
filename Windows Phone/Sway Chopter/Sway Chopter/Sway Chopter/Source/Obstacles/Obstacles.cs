@@ -14,6 +14,7 @@ namespace Sway_Chopter.Source.Obstacles
     {
         List<Texture2D> textures;
         List<Vector2> locations;
+        List<WreckingBall> WreckingBalls;
         List<bool> didPass;
 
         bool flip;
@@ -26,6 +27,8 @@ namespace Sway_Chopter.Source.Obstacles
         Viewport viewport;
 
         Random r;
+        ContentManager c;
+
         public Obstacles(Viewport vp)
         {
             Initialize(vp);
@@ -43,11 +46,32 @@ namespace Sway_Chopter.Source.Obstacles
             textures = new List<Texture2D>();
             locations = new List<Vector2>();
             didPass = new List<Boolean>();
+            WreckingBalls = new List<WreckingBall>();
+
+            
+
+            
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+            c = content;
+            left = content.Load<Texture2D>("Steel Beam Left");
+            right = content.Load<Texture2D>("Steel Beam");
+
+            for (int i = 0; i < 7; i++)
+            {
+                textures.Add(left);
+                textures.Add(right);
+            }
 
             Vector2 vc1 = new Vector2(r.Next((int)(viewport.Width / 4), (int)(viewport.Width * 0.6f)) - size.X, size.Y * 3);
             Vector2 vc2 = new Vector2(vc1.X + size.X + (viewport.Width / 7), vc1.Y);
             locations.Add(vc1);
+
             locations.Add(vc2);
+            WreckingBalls.Add(new WreckingBall(viewport, 1, vc1, size, c));
+            WreckingBalls.Add(new WreckingBall(viewport, 2, vc2, size, c));
 
             didPass.Add(false);
             didPass.Add(false);
@@ -60,20 +84,11 @@ namespace Sway_Chopter.Source.Obstacles
                 locations.Add(vc3);
                 locations.Add(vc4);
 
+                WreckingBalls.Add(new WreckingBall(viewport, 1, vc3, size, c));
+                WreckingBalls.Add(new WreckingBall(viewport, 2, vc4, size, c));
+
                 didPass.Add(false);
                 didPass.Add(false);
-            }
-        }
-
-        public void LoadContent(ContentManager content)
-        {
-            left = content.Load<Texture2D>("Steel Beam Left");
-            right = content.Load<Texture2D>("Steel Beam");
-
-            for (int i = 0; i < 7; i++)
-            {
-                textures.Add(left);
-                textures.Add(right);
             }
         }
 
@@ -82,17 +97,18 @@ namespace Sway_Chopter.Source.Obstacles
             for (int i = 0; i < locations.Count; i++)
             {
                 locations[i] = new Vector2(locations[i].X, locations[i].Y + number);
+                WreckingBalls[i].Update(number);
             }
 
             if (!didPass[0])
             {
-            if (locations[0].Y > passPoint)
-            {
-                GameState.me.score.score++;
-                didPass[0] = true;
-                didPass[1] = true;
-            }
+                if (locations[0].Y > passPoint)
+                {
+                    GameState.me.score.score++;
+                    didPass[0] = true;
+                    didPass[1] = true;
                 }
+            }
 
             if (locations[0].Y > viewport.Height)
             {
@@ -104,6 +120,12 @@ namespace Sway_Chopter.Source.Obstacles
 
                 locations.Add(vc3);
                 locations.Add(vc4);
+
+                WreckingBalls.RemoveAt(0);
+                WreckingBalls.RemoveAt(0);
+
+                WreckingBalls.Add(new WreckingBall(viewport, 1, vc3, size, c));
+                WreckingBalls.Add(new WreckingBall(viewport, 2, vc4, size, c));
 
                 didPass.RemoveAt(0);
                 didPass.RemoveAt(0);
@@ -118,6 +140,7 @@ namespace Sway_Chopter.Source.Obstacles
             for (int i = 0; i < 9; i++)
             {
                 spritebatch.Draw(textures[i], new Rectangle((int)locations[i].X, (int)locations[i].Y, (int)size.X, (int)size.Y), Color.White);
+                WreckingBalls[i].Draw(spritebatch);
             }
         }
     }

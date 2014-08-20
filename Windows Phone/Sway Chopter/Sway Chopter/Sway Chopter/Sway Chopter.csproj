@@ -67,6 +67,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Mechanics\Score.cs" />
     <Compile Include="Source\Obstacles\Obstacles.cs" />
+    <Compile Include="Source\Obstacles\WreckingBall.cs" />
     <Compile Include="Source\Player\Player.cs" />
     <Compile Include="Source\States\GameState.cs" />
     <Compile Include="Source\States\Menu.cs" />
