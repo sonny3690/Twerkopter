@@ -68,7 +68,7 @@ namespace Sway_Chopter
                     if (new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains((int)tl.Position.X, (int)tl.Position.Y))
                     {
                         playLocation.Y -= 5;
-                        return new GetReady(graphics, content, viewport);
+                        return new GameState(graphics, content, viewport);
                     }                    
                 }
             }
