@@ -130,24 +130,23 @@ namespace Sway_Chopter
             {
                 if (!obstacles.didPass[i])
                 {
-                    Debug.WriteLine((int)obstacles.WreckingBalls[i].location.X);
-                    if (
-                        new Rectangle(
-                            (int)obstacles.WreckingBalls[i].location.X,
-                            (int)(obstacles.WreckingBalls[i].location.Y + obstacles.WreckingBalls[i].size.Y / 2),
-                            (int)obstacles.WreckingBalls[i].size.X,
-                            (int)obstacles.WreckingBalls[i].size.Y / 2
-                            ).Intersects(
-                                new Rectangle(
-                                        (int)(player.location.X + player.size.X / 4),
-                                        (int)player.location.Y,
-                                        (int)player.size.X / 2,
-                                        (int)player.size.Y / 3
-                                    )
-                                ))
+                    if (new Rectangle(
+                        (int)obstacles.locations[i].X, 
+                        (int)obstacles.locations[i].Y, 
+                        (int)obstacles.size.X, 
+                        (int)obstacles.size.Y).Intersects(
+                            new Rectangle(
+                                (int)player.location.X, 
+                                (int)player.location.Y, 
+                                (int)player.size.X, 
+                                (int)player.size.Y)
+                                )
+                        )
                     {
                         return true;
                     }
+
+
                 }
             }
 

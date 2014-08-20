@@ -13,12 +13,12 @@ namespace Sway_Chopter.Source.Obstacles
     public class Obstacles
     {
         List<Texture2D> textures;
-        List<Vector2> locations;
+        public List<Vector2> locations;
         public List<WreckingBall> WreckingBalls;
         public List<bool> didPass;
 
         bool flip;
-        Vector2 size;
+        public Vector2 size;
         Texture2D left;
         Texture2D right;
 
