@@ -70,7 +70,9 @@ namespace Sway_Chopter
 
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
-    
+
+            viewport = GraphicsDevice.Viewport;
+
             currentState = new Menu(graphics, Content, viewport);
             currentState.Initialize();
 

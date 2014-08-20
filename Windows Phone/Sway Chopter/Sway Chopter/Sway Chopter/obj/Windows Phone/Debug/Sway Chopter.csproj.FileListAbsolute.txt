@@ -31,9 +31,3 @@ C:\Users\Trevor\Documents\GitHub\sway-chopter\Sway-Chopter\Windows Phone\Sway Ch
 C:\Users\Trevor\Documents\GitHub\sway-chopter\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\obj\Windows Phone\Debug\WMAppManifest.xml
 C:\Users\Trevor\Documents\GitHub\sway-chopter\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Sway Chopter.xap
 C:\Users\Trevor\Documents\GitHub\sway-chopter\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\obj\Windows Phone\Debug\XapCacheFile.xml
-C:\Users\Trevor\Documents\GitHub\sway-chopter\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Sway Chopter.xap
-C:\Users\Trevor\Documents\GitHub\sway-chopter\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\obj\Windows Phone\Debug\XapCacheFile.xml
-C:\Users\Trevor\Documents\GitHub\sway-chopter\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\AppManifest.xaml
-C:\Users\Trevor\Documents\GitHub\sway-chopter\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\obj\Windows Phone\Debug\WMAppManifest.xml.g
-C:\Users\Trevor\Documents\GitHub\sway-chopter\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\obj\Windows Phone\Debug\WMAppManifest.xml
-bin\Windows Phone\Debug\

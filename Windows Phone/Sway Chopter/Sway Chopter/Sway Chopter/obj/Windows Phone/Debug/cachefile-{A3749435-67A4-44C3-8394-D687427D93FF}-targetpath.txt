@@ -1,5 +1,5 @@
 Content\Character.xnb
+Content\ScoreFont.xnb
 Content\btnPlay.xnb
 Content\btnRanking.xnb
 Content\btnRate.xnb
-Content\ScoreFont.xnb
