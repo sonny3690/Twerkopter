@@ -69,9 +69,9 @@ namespace Sway_Chopter.Source.Obstacles
             location = new Vector2(location.X, location.Y + number);
         }
 
-        public void Draw(SpriteBatch spritebatch)
+        public void Draw(SpriteBatch spritebatch, float rotation)
         {
-            spritebatch.Draw(texture, new Rectangle((int)location.X, (int)location.Y, (int)size.X, (int)size.Y), null, Color.White, -1f, new Vector2(size.X / 2, 0), SpriteEffects.None, 0f);
+            spritebatch.Draw(texture, new Rectangle((int)location.X, (int)location.Y, (int)size.X, (int)size.Y), null, Color.White, rotation, new Vector2(size.X / 2, 0), SpriteEffects.None, 0f);
         }
 
         /*

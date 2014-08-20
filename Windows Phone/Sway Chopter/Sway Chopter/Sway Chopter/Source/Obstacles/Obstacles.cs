@@ -29,6 +29,11 @@ namespace Sway_Chopter.Source.Obstacles
         Random r;
         ContentManager c;
 
+        float rotation = 1f;
+        float rotationVelocity = 0.01f;
+        float rotationVelocitysAdder = 0.005f;
+        bool pos = true;
+
         public Obstacles(Viewport vp)
         {
             Initialize(vp);
@@ -47,10 +52,6 @@ namespace Sway_Chopter.Source.Obstacles
             locations = new List<Vector2>();
             didPass = new List<Boolean>();
             WreckingBalls = new List<WreckingBall>();
-
-            
-
-            
         }
 
         public void LoadContent(ContentManager content)
@@ -133,6 +134,29 @@ namespace Sway_Chopter.Source.Obstacles
                 didPass.Add(false);
                 didPass.Add(false);
             }
+
+            if (pos)
+            {
+                if (rotation >= 1f)
+                {
+                    rotationVelocity = 0.01f;
+                    pos = false;
+                }
+                rotation += rotationVelocity;
+                rotationVelocity += rotationVelocitysAdder;
+            }
+
+            else
+            {
+                if (rotation <= -1f)
+                {
+                    rotationVelocity = 0.01f;
+                    pos = true;
+                }
+                rotation -= rotationVelocity;
+                rotationVelocity += rotationVelocitysAdder;
+            }
+            
         }
 
         public void Draw(SpriteBatch spritebatch)
@@ -140,7 +164,7 @@ namespace Sway_Chopter.Source.Obstacles
             for (int i = 0; i < 9; i++)
             {
                 spritebatch.Draw(textures[i], new Rectangle((int)locations[i].X, (int)locations[i].Y, (int)size.X, (int)size.Y), Color.White);
-                WreckingBalls[i].Draw(spritebatch);
+                WreckingBalls[i].Draw(spritebatch, rotation);
             }
         }
     }
