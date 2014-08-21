@@ -56,6 +56,8 @@ namespace Sway_Chopter
         Vector2 READEsize;
 
         public Score score;
+        Vector2 ScoreSize;
+        Vector2 HighScoreSize;
 
         Player player;
         Obstacles obstacles;
@@ -258,6 +260,30 @@ namespace Sway_Chopter
                         spriteBatch.DrawString(spriteFont, "Game Over", GameOverLocation, Color.Orange, 0, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
                         spriteBatch.Draw(Scoreboard, new Rectangle((int)ScoreboardLocation.X, (int)ScoreboardLocation.Y, (int)ScoreboardSize.X, (int)ScoreboardSize.Y), Color.White);
+
+                        #region Score
+                            ScoreSize = spriteFont.MeasureString(score.score.ToString());
+                            #region Outline
+                            spriteBatch.DrawString(spriteFont, score.score.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10) + 3, ScoreboardLocation.Y + (ScoreboardSize.Y / 4)), Color.Black, 0, new Vector2(ScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                            spriteBatch.DrawString(spriteFont, score.score.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10) - 3, ScoreboardLocation.Y + (ScoreboardSize.Y / 4)), Color.Black, 0, new Vector2(ScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                            spriteBatch.DrawString(spriteFont, score.score.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y / 4) + 3), Color.Black, 0, new Vector2(ScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                            spriteBatch.DrawString(spriteFont, score.score.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y / 4) - 3), Color.Black, 0, new Vector2(ScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                            #endregion
+
+                            spriteBatch.DrawString(spriteFont, score.score.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y / 4)), Color.White, 0, new Vector2(ScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                        #endregion
+
+                            #region HighScore
+                            HighScoreSize = spriteFont.MeasureString(score.getHighScore().ToString());
+                            #region Outline
+                            spriteBatch.DrawString(spriteFont, score.highScore.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10) + 3, ScoreboardLocation.Y + (ScoreboardSize.Y * .7f)), Color.Black, 0, new Vector2(HighScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                            spriteBatch.DrawString(spriteFont, score.highScore.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10) - 3, ScoreboardLocation.Y + (ScoreboardSize.Y * .7f)), Color.Black, 0, new Vector2(HighScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                            spriteBatch.DrawString(spriteFont, score.highScore.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y * .7f) + 3), Color.Black, 0, new Vector2(HighScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                            spriteBatch.DrawString(spriteFont, score.highScore.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y * .7f) - 3), Color.Black, 0, new Vector2(HighScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                            #endregion
+
+                            spriteBatch.DrawString(spriteFont, score.highScore.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y * .7f)), Color.White, 0, new Vector2(HighScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                            #endregion
                         spriteBatch.Draw(btnPlay, new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y), Color.White);
                     }
 

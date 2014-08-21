@@ -70,6 +70,7 @@ namespace Sway_Chopter.Source.Mechanics
                 Console.WriteLine(e);
             }
 
+            highScore = highscore;
             return highscore;
         }
 
