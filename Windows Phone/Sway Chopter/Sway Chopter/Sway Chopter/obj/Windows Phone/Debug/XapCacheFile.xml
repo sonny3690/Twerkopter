@@ -1,9 +1,9 @@
-﻿<xapCache source="C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Sway Chopter.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="8/20/2014 10:18:41 PM">
+﻿<xapCache source="C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Sway Chopter.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="8/20/2014 10:57:44 PM">
   <file source="C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\Background.png" archivePath="Background.png" lastWriteTime="8/18/2014 11:57:57 PM" />
   <file source="C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\PhoneGameThumb.png" archivePath="PhoneGameThumb.png" lastWriteTime="8/18/2014 11:57:57 PM" />
   <file source="C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="8/19/2014 12:29:45 AM" />
   <file source="C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="8/19/2014 12:29:45 AM" />
-  <file source="C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Sway Chopter.dll" archivePath="Sway Chopter.dll" lastWriteTime="8/20/2014 10:18:41 PM" />
+  <file source="C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Sway Chopter.dll" archivePath="Sway Chopter.dll" lastWriteTime="8/20/2014 10:57:43 PM" />
   <file source="C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\Character.xnb" archivePath="Content\Character.xnb" lastWriteTime="8/19/2014 12:29:43 AM" />
   <file source="C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\ScoreFont.xnb" archivePath="Content\ScoreFont.xnb" lastWriteTime="8/19/2014 12:46:42 AM" />
   <file source="C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\btnPlay.xnb" archivePath="Content\btnPlay.xnb" lastWriteTime="8/19/2014 4:44:50 PM" />
@@ -14,4 +14,6 @@
   <file source="C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\Wrecking Ball.xnb" archivePath="Content\Wrecking Ball.xnb" lastWriteTime="8/20/2014 9:39:00 PM" />
   <file source="C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\MileyCyrus.xnb" archivePath="Content\MileyCyrus.xnb" lastWriteTime="8/20/2014 11:12:43 AM" />
   <file source="C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\Dashboard.xnb" archivePath="Content\Dashboard.xnb" lastWriteTime="8/20/2014 6:42:21 PM" />
+  <file source="C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\coin.xnb" archivePath="Content\coin.xnb" lastWriteTime="8/20/2014 10:53:40 PM" />
+  <file source="C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\swing.xnb" archivePath="Content\swing.xnb" lastWriteTime="8/20/2014 10:53:40 PM" />
 </xapCache>

@@ -62,6 +62,8 @@ namespace Sway_Chopter
         Player player;
         Obstacles obstacles;
 
+        public SoundEffect buttonSound;
+
         public GameState(GraphicsDeviceManager g, ContentManager c, Viewport v) : base(g, c, v)
         {
             me = this;
@@ -90,6 +92,8 @@ namespace Sway_Chopter
             Scoreboard = content.Load<Texture2D>("Dashboard");
             ScoreboardSize = new Vector2(viewport.Width * .9f, viewport.Width * 0.545625f);
             ScoreboardLocation = new Vector2((viewport.Width - ScoreboardSize.X) / 2, viewport.Height);
+
+            buttonSound = c.Load<SoundEffect>("swing");
         }
 
         public override void Initialize()
@@ -123,6 +127,7 @@ namespace Sway_Chopter
                             Menu = false;
                             IsGameOver = false;
                             GetReadE = true;
+                            buttonSound.Play();
                         }
                     }
                 }
@@ -139,6 +144,7 @@ namespace Sway_Chopter
                     {
                         if (tl.State == TouchLocationState.Released)
                         {
+                            buttonSound.Play();
                             GetReadE = false;
                         }
                     }
@@ -168,6 +174,8 @@ namespace Sway_Chopter
                             {
                                 if (new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains((int)tl.Position.X, (int)tl.Position.Y))
                                 {
+                                    buttonSound.Play();
+
                                     playLocation.Y -= 5;
 
                                     player = new Player(viewport);
@@ -195,6 +203,7 @@ namespace Sway_Chopter
                         {
                             if (tl.State == TouchLocationState.Released)
                             {
+                                buttonSound.Play();
                                 player.TapUpdate();
                             }
                         }

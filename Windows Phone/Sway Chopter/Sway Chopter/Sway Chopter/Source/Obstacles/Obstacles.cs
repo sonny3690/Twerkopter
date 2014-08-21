@@ -5,6 +5,7 @@ using System.IO;
 using System.Resources;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
@@ -16,6 +17,8 @@ namespace Sway_Chopter.Source.Obstacles
         public List<Vector2> locations;
         public List<WreckingBall> WreckingBalls;
         public List<bool> didPass;
+
+        public SoundEffect coin;
 
         bool flip;
         public Vector2 size;
@@ -88,6 +91,8 @@ namespace Sway_Chopter.Source.Obstacles
                 didPass.Add(false);
                 didPass.Add(false);
             }
+
+            coin = content.Load<SoundEffect>("coin");
         }
 
         public void Update(GameTime gameTime, int upSpeed)
@@ -102,6 +107,7 @@ namespace Sway_Chopter.Source.Obstacles
             {
                 if (locations[0].Y > passPoint)
                 {
+                    coin.Play();
                     GameState.me.score.score++;
                     didPass[0] = true;
                     didPass[1] = true;

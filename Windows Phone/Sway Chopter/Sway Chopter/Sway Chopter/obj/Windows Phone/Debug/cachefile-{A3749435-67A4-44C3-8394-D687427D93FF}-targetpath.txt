@@ -8,3 +8,5 @@ Content\Steel Beam Left.xnb
 Content\Wrecking Ball.xnb
 Content\MileyCyrus.xnb
 Content\Dashboard.xnb
+Content\coin.xnb
+Content\swing.xnb

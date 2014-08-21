@@ -91,6 +91,24 @@
       <Output>C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\Dashboard.xnb</Output>
       <Time>2014-08-20T18:41:16.1144164-04:00</Time>
     </Item>
+    <Item>
+      <Source>coin.wav</Source>
+      <Name>coin</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\coin.xnb</Output>
+      <Time>2014-08-20T22:51:11.1779804-04:00</Time>
+    </Item>
+    <Item>
+      <Source>swing.wav</Source>
+      <Name>swing</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jay\Documents\GitHub\Sway-Chopter\Windows Phone\Sway Chopter\Sway Chopter\Sway Chopter\bin\Windows Phone\Debug\Content\swing.xnb</Output>
+      <Time>2014-08-20T22:51:11.184987-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID Null="true" />
