@@ -14,6 +14,7 @@ namespace Sway_Chopter.Source.Obstacles
     public class WreckingBall
     {
         public static Texture2D texture;
+        public static Texture2D whiteText;
         public Vector2 pos;
         public static float rotation;
         private static int direction = 1;
@@ -32,10 +33,9 @@ namespace Sway_Chopter.Source.Obstacles
         public static void UpdateRotation(GameTime gameTime)
         {
             float f = 1f - (float)Math.Abs(rotation) / MathHelper.PiOver2;
-            f *= 1.1f;
             f /= 2f;
 
-            rotation += (float)gameTime.ElapsedGameTime.TotalSeconds * MathHelper.PiOver4 * .4f * direction * f;
+            rotation += (float)gameTime.ElapsedGameTime.TotalSeconds * MathHelper.PiOver4 * direction * f * 2f;
             if (flip && (rotation > MathHelper.PiOver4 || rotation < -MathHelper.PiOver4))
             {
                 direction *= -1;
@@ -48,7 +48,10 @@ namespace Sway_Chopter.Source.Obstacles
 
         public void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(texture, pos, null, Color.White, rotation, new Vector2(32, 5), 1f, SpriteEffects.None, 0f);
+            spritebatch.Draw(texture, this.pos, null, Color.White, rotation, new Vector2(32, 5), 1f, SpriteEffects.None, 0f);
+            Vector2 ballOffset = this.pos + new Vector2((float)Math.Cos(WreckingBall.rotation + MathHelper.PiOver2), (float)Math.Sin(WreckingBall.rotation + MathHelper.PiOver2)) * 65;
+            spritebatch.Draw(whiteText, new Rectangle((int)ballOffset.X, (int)ballOffset.Y, 32, 4), null, Color.Red, rotation, new Vector2(0, 2), SpriteEffects.None, 0f);
+            spritebatch.Draw(whiteText, new Rectangle((int)ballOffset.X, (int)ballOffset.Y, 32, 4), null, Color.Red, rotation + MathHelper.PiOver2, new Vector2(0, 2), SpriteEffects.None, 0f);
         }
     }
 }

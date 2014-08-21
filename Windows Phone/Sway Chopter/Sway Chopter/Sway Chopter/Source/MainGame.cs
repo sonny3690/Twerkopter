@@ -94,6 +94,8 @@ namespace Sway_Chopter
             currentState.LoadContent();
 
             Source.Obstacles.WreckingBall.texture = Content.Load<Texture2D>("Wrecking Ball");
+            Source.Obstacles.WreckingBall.whiteText = new Texture2D(GraphicsDevice, 1, 1);
+            Source.Obstacles.WreckingBall.whiteText.SetData<Color>(new Color[] { Color.White });
         }
 
         /// <summary>
