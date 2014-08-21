@@ -20,7 +20,6 @@ namespace Sway_Chopter.Source.Obstacles
 
         public SoundEffect coin;
 
-        bool flip;
         public Vector2 size;
         Texture2D left;
         Texture2D right;
@@ -31,8 +30,6 @@ namespace Sway_Chopter.Source.Obstacles
 
         Random r;
         ContentManager c;
-
-        bool pos = true;
 
         public Obstacles(Viewport vp)
         {
@@ -100,8 +97,9 @@ namespace Sway_Chopter.Source.Obstacles
             for (int i = 0; i < locations.Count; i++)
             {
                 locations[i] = new Vector2(locations[i].X, locations[i].Y + upSpeed);
-                WreckingBalls[i].Update(gameTime, upSpeed);
             }
+            foreach (WreckingBall wb in WreckingBalls)
+                wb.Update(gameTime, upSpeed);
 
             if (!didPass[0])
             {
@@ -125,9 +123,6 @@ namespace Sway_Chopter.Source.Obstacles
                 locations.Add(vc3);
                 locations.Add(vc4);
 
-                WreckingBalls.RemoveAt(0);
-                WreckingBalls.RemoveAt(0);
-
                 WreckingBalls.Add(new WreckingBall(new Vector2(vc3.X + size.X - (15 * (size.X / 512)), vc3.Y + (17 * (size.Y / 32)))));
                 WreckingBalls.Add(new WreckingBall(new Vector2(vc4.X + (15 * (size.X / 512)), vc4.Y + (17 * (size.Y / 32)))));
 
@@ -137,7 +132,15 @@ namespace Sway_Chopter.Source.Obstacles
                 didPass.Add(false);
                 didPass.Add(false);
             }
-            
+            WreckingBall.UpdateRotation(gameTime);
+
+            List<WreckingBall> removeQueue = new List<WreckingBall>();
+            foreach (WreckingBall wb in WreckingBalls)
+                if (wb.pos.Y > viewport.Height)
+                    removeQueue.Add(wb);
+            foreach (WreckingBall wb in removeQueue)
+                WreckingBalls.Remove(wb);
+
         }
 
         public void Draw(SpriteBatch spritebatch)
@@ -145,8 +148,44 @@ namespace Sway_Chopter.Source.Obstacles
             for (int i = 0; i < 9; i++)
             {
                 spritebatch.Draw(textures[i], new Rectangle((int)locations[i].X, (int)locations[i].Y, (int)size.X, (int)size.Y), Color.White);
-                WreckingBalls[i].Draw(spritebatch);
             }
+
+            foreach (WreckingBall wb in WreckingBalls)
+                wb.Draw(spritebatch);
+        }
+
+        public bool wreckingBallCollision(Player.Player p)
+        {
+            float ballRadiusSquared = 32 * 32;
+            Vector2 ballOffset = new Vector2((float)Math.Cos(WreckingBall.rotation + MathHelper.PiOver2), (float)Math.Sin(WreckingBall.rotation + MathHelper.PiOver2)) * 93;
+            List<Vector2> ballPositions = new List<Vector2>();
+
+            foreach (WreckingBall b in WreckingBalls)
+            {
+                if (b.pos.Y >= viewport.Height * .5f)
+                    ballPositions.Add(b.pos);
+            }
+
+            for (int x = 0; x < p.texture.Width; x++)
+                for (int y = 0; y < 160; y++)
+                {
+                    int X = x;
+                    if (p.flip)
+                        X = p.texture.Width - x;
+                    if (p.textureData[x, y].A > 25) // transparency threshold
+                    {
+                        Vector2 pos = p.location + new Vector2(X, y);
+                        foreach (Vector2 v in ballPositions)
+                        {
+                            if (Vector2.DistanceSquared(pos, v + ballOffset) < ballRadiusSquared)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+
+            return false;
         }
     }
 }

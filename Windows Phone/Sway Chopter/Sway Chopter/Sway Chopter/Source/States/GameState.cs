@@ -327,7 +327,7 @@ namespace Sway_Chopter
             {
                 if (w.pos.Y > viewport.Height / 2)
                 {
-                    if (w.collidesWithMiley(player))
+                    if (obstacles.wreckingBallCollision(player))
                         return true;
                 }
             }
