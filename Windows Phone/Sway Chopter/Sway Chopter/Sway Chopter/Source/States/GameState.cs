@@ -290,8 +290,11 @@ namespace Sway_Chopter
 
             foreach (WreckingBall w in obstacles.WreckingBalls)
             {
-                if (w.collidesWithMiley(player))
-                    return true;
+                if (w.pos.Y > viewport.Height / 2)
+                {
+                    if (w.collidesWithMiley(player))
+                        return true;
+                }
             }
 
             return false;

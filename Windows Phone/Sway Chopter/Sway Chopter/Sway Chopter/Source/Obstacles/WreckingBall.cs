@@ -27,8 +27,10 @@ namespace Sway_Chopter.Source.Obstacles
         public void Update(GameTime gameTime, int moveUp)
         {
             float f = 1f - (float)Math.Abs(rotation) / MathHelper.PiOver2;
+            f *= 1.1f;
             f /= 2f;
-            rotation += (float)gameTime.ElapsedGameTime.TotalSeconds * MathHelper.PiOver2 * .4f * direction * f;
+
+            rotation += (float)gameTime.ElapsedGameTime.TotalSeconds * MathHelper.PiOver4 * .4f * direction * f;
             if (flip && (rotation > MathHelper.PiOver4 || rotation < -MathHelper.PiOver4))
             {
                 direction *= -1;

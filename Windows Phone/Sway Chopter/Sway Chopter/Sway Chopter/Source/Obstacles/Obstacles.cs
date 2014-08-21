@@ -68,8 +68,8 @@ namespace Sway_Chopter.Source.Obstacles
             locations.Add(vc1);
 
             locations.Add(vc2);
-            WreckingBalls.Add(new WreckingBall(vc1));
-            WreckingBalls.Add(new WreckingBall(vc2));
+            WreckingBalls.Add(new WreckingBall(new Vector2(vc1.X + size.X - (15 * (size.X / 512)), vc1.Y + (17 * (size.Y / 32)))));
+            WreckingBalls.Add(new WreckingBall(new Vector2(vc2.X + (15 * (size.X / 512)), vc2.Y + (17 * (size.Y / 32)))));
 
             didPass.Add(false);
             didPass.Add(false);
@@ -82,8 +82,8 @@ namespace Sway_Chopter.Source.Obstacles
                 locations.Add(vc3);
                 locations.Add(vc4);
 
-                WreckingBalls.Add(new WreckingBall(vc3));
-                WreckingBalls.Add(new WreckingBall(vc4));
+                WreckingBalls.Add(new WreckingBall(new Vector2(vc3.X + size.X - (15 * (size.X / 512)), vc3.Y + (17 * (size.Y / 32)))));
+                WreckingBalls.Add(new WreckingBall(new Vector2(vc4.X + + (15 * (size.X / 512)), vc4.Y + (17 * (size.Y / 32)))));
 
                 didPass.Add(false);
                 didPass.Add(false);
@@ -122,8 +122,8 @@ namespace Sway_Chopter.Source.Obstacles
                 WreckingBalls.RemoveAt(0);
                 WreckingBalls.RemoveAt(0);
 
-                WreckingBalls.Add(new WreckingBall(vc3 + new Vector2(14, 16)));
-                WreckingBalls.Add(new WreckingBall(vc4 + new Vector2(14, 16)));
+                WreckingBalls.Add(new WreckingBall(new Vector2(vc3.X + size.X - (15 * (size.X / 512)), vc3.Y + (17 * (size.Y / 32)))));
+                WreckingBalls.Add(new WreckingBall(new Vector2(vc4.X + (15 * (size.X / 512)), vc4.Y + (17 * (size.Y / 32)))));
 
                 didPass.RemoveAt(0);
                 didPass.RemoveAt(0);

@@ -1,10 +1,10 @@
 Content\Character.xnb
+Content\ScoreFont.xnb
 Content\btnPlay.xnb
 Content\btnRanking.xnb
 Content\btnRate.xnb
 Content\Steel Beam.xnb
 Content\Steel Beam Left.xnb
-Content\MileyCyrus.xnb
 Content\Wrecking Ball.xnb
+Content\MileyCyrus.xnb
 Content\Dashboard.xnb
-Content\ScoreFont.xnb
