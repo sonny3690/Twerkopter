@@ -12,11 +12,13 @@ namespace Sway_Chopter.Source.Player
 {
     public class Player
     {
-        Texture2D texture;
+        public Texture2D texture;
         Rectangle src;
-        bool flip;
+        public bool flip;
         public Vector2 location;
         public Vector2 size;
+
+        public Color[,] textureData;
 
         Viewport viewport;
         public bool prevTapState = false;
@@ -60,6 +62,12 @@ namespace Sway_Chopter.Source.Player
         public void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>(@"MileyCyrus");
+            Color[] data = new Color[texture.Width * texture.Height];
+            texture.GetData<Color>(data);
+            textureData = new Color[texture.Width, texture.Height];
+            for (int x = 0; x < texture.Width; x++)
+                for (int y = 0; y < texture.Height; y++)
+                    textureData[x, y] = data[x + y * texture.Width];
         }
 
         public void Update(GameTime gameTime)
@@ -136,6 +144,27 @@ namespace Sway_Chopter.Source.Player
                 velocity = 0;
                 speed = 0;
             }
+        }
+
+        public bool collidesWithPlatform(Rectangle platform)
+        {
+            for (int x = 0; x < texture.Width; x++)
+                for (int y = 0; y < 160; y++)
+                {
+                    int X = x;
+                    if (flip)
+                        X = texture.Width - x;
+                    if (textureData[x, y].A > 25) // transparency threshold
+                    {
+                        Point p = new Point((int)location.X + x, (int)location.Y + y);
+                        if (platform.Contains(p))
+                        {
+                            return true;
+                        }
+                    }
+                }
+
+            return false;
         }
     }
 }

@@ -92,6 +92,8 @@ namespace Sway_Chopter
 
             // TODO: use this.Content to load your game content here
             currentState.LoadContent();
+
+            Source.Obstacles.WreckingBall.texture = Content.Load<Texture2D>("Wrecking Ball");
         }
 
         /// <summary>

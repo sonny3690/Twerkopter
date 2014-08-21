@@ -125,7 +125,7 @@ namespace Sway_Chopter
                     }
                 }
 
-                obstacles.Update(0);
+                obstacles.Update(gameTime, 0);
             }
 
             else
@@ -140,7 +140,7 @@ namespace Sway_Chopter
                             GetReadE = false;
                         }
                     }
-                    obstacles.Update(0);
+                    obstacles.Update(gameTime, 0);
                 }
 
                 else //The actual game loop
@@ -183,7 +183,7 @@ namespace Sway_Chopter
                             }
                         }
 
-                        obstacles.Update(0);
+                        obstacles.Update(gameTime, 0);
                     }
 
                     else
@@ -196,10 +196,10 @@ namespace Sway_Chopter
                                 player.TapUpdate();
                             }
                         }
-                        obstacles.Update(4);
+                        obstacles.Update(gameTime, 4);
                         player.Update(gameTime);
 
-                        if (PlayerIsWrecked())
+                        if (PlayerIsRekt())
                         {
                             IsGameOver = true;
                             score.saveScore();
@@ -270,30 +270,28 @@ namespace Sway_Chopter
             spriteBatch.End();
         }
 
-        public bool PlayerIsWrecked()
+        public bool PlayerIsRekt()
         {
             for (int i = 0; i < 2; i++)
             {
                 if (!obstacles.didPass[i])
                 {
-                    if (new Rectangle(
-                        (int)obstacles.locations[i].X, 
-                        (int)obstacles.locations[i].Y, 
-                        (int)obstacles.size.X, 
-                        (int)obstacles.size.Y).Intersects(
-                            new Rectangle(
-                                (int)player.location.X, 
-                                (int)player.location.Y, 
-                                (int)player.size.X, 
-                                (int)player.size.Y)
-                                )
-                        )
-                    {
+                    Rectangle rect = new Rectangle(
+                        (int)obstacles.locations[i].X,
+                        (int)obstacles.locations[i].Y,
+                        (int)obstacles.size.X,
+                        (int)obstacles.size.Y);
+                    if (player.collidesWithPlatform(rect)) 
                         return true;
-                    }
 
 
                 }
+            }
+
+            foreach (WreckingBall w in obstacles.WreckingBalls)
+            {
+                if (w.collidesWithMiley(player))
+                    return true;
             }
 
             return false;

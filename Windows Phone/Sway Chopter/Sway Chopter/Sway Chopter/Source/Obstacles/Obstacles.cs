@@ -29,9 +29,6 @@ namespace Sway_Chopter.Source.Obstacles
         Random r;
         ContentManager c;
 
-        float rotation = 1f;
-        float rotationVelocity = 0.003f;
-        float rotationVelocitysAdder = 0.001f;
         bool pos = true;
 
         public Obstacles(Viewport vp)
@@ -71,8 +68,8 @@ namespace Sway_Chopter.Source.Obstacles
             locations.Add(vc1);
 
             locations.Add(vc2);
-            WreckingBalls.Add(new WreckingBall(viewport, 1, vc1, size, c));
-            WreckingBalls.Add(new WreckingBall(viewport, 2, vc2, size, c));
+            WreckingBalls.Add(new WreckingBall(vc1));
+            WreckingBalls.Add(new WreckingBall(vc2));
 
             didPass.Add(false);
             didPass.Add(false);
@@ -85,20 +82,20 @@ namespace Sway_Chopter.Source.Obstacles
                 locations.Add(vc3);
                 locations.Add(vc4);
 
-                WreckingBalls.Add(new WreckingBall(viewport, 1, vc3, size, c));
-                WreckingBalls.Add(new WreckingBall(viewport, 2, vc4, size, c));
+                WreckingBalls.Add(new WreckingBall(vc3));
+                WreckingBalls.Add(new WreckingBall(vc4));
 
                 didPass.Add(false);
                 didPass.Add(false);
             }
         }
 
-        public void Update(int number)
+        public void Update(GameTime gameTime, int upSpeed)
         {
             for (int i = 0; i < locations.Count; i++)
             {
-                locations[i] = new Vector2(locations[i].X, locations[i].Y + number);
-                WreckingBalls[i].Update(number);
+                locations[i] = new Vector2(locations[i].X, locations[i].Y + upSpeed);
+                WreckingBalls[i].Update(gameTime, upSpeed);
             }
 
             if (!didPass[0])
@@ -125,36 +122,14 @@ namespace Sway_Chopter.Source.Obstacles
                 WreckingBalls.RemoveAt(0);
                 WreckingBalls.RemoveAt(0);
 
-                WreckingBalls.Add(new WreckingBall(viewport, 1, vc3, size, c));
-                WreckingBalls.Add(new WreckingBall(viewport, 2, vc4, size, c));
+                WreckingBalls.Add(new WreckingBall(vc3 + new Vector2(14, 16)));
+                WreckingBalls.Add(new WreckingBall(vc4 + new Vector2(14, 16)));
 
                 didPass.RemoveAt(0);
                 didPass.RemoveAt(0);
 
                 didPass.Add(false);
                 didPass.Add(false);
-            }
-
-            if (pos)
-            {
-                if (rotation >= .7f)
-                {
-                    rotationVelocity = 0.05f;
-                    pos = false;
-                }
-                rotation += rotationVelocity;
-                rotationVelocity += rotationVelocitysAdder;
-            }
-
-            else
-            {
-                if (rotation <= -.7f)
-                {
-                    rotationVelocity = 0.05f;
-                    pos = true;
-                }
-                rotation -= rotationVelocity;
-                rotationVelocity += rotationVelocitysAdder;
             }
             
         }
@@ -164,7 +139,7 @@ namespace Sway_Chopter.Source.Obstacles
             for (int i = 0; i < 9; i++)
             {
                 spritebatch.Draw(textures[i], new Rectangle((int)locations[i].X, (int)locations[i].Y, (int)size.X, (int)size.Y), Color.White);
-                WreckingBalls[i].Draw(spritebatch, rotation);
+                WreckingBalls[i].Draw(spritebatch);
             }
         }
     }
