@@ -16,6 +16,7 @@ using Sway_Chopter.Source;
 using Sway_Chopter.Source.Mechanics;
 using Sway_Chopter.Source.Player;
 using Sway_Chopter.Source.Obstacles;
+using Microsoft.Phone.Tasks;
 
 namespace Sway_Chopter
 {
@@ -70,14 +71,17 @@ namespace Sway_Chopter
 
         public SoundEffect buttonSound;
 
-        public GameState(GraphicsDeviceManager g, ContentManager c, Viewport v) : base(g, c, v)
+        public GameState(GraphicsDeviceManager g, ContentManager c, Viewport v)
+            : base(g, c, v)
         {
             me = this;
             viewport = v;
 
             ButtonSize = new Vector2(viewport.Width * 0.34f, viewport.Width * 0.17f);
             btnPlay = content.Load<Texture2D>("btnPlay");
-            playLocation = new Vector2((viewport.Width - ButtonSize.X) / 2, viewport.Height * 0.6f);
+            btnRate = content.Load<Texture2D>("btnRate");
+            playLocation = new Vector2((viewport.Width / 2) - ButtonSize.X - (viewport.Height / 40), viewport.Height * 0.6f);
+            rateLocation = new Vector2((viewport.Width / 2) + (viewport.Height / 40), viewport.Height * 0.6f);
 
             score = new Score(v, c);
             score.display = true;
@@ -92,9 +96,9 @@ namespace Sway_Chopter
             READEsize = spriteFont.MeasureString("Get Ready");
             Menusize = spriteFont.MeasureString("Twerkopter");
             GameOverSize = spriteFont.MeasureString("Game Over");
-            
+
             GameOverLocation = new Vector2((viewport.Width - spriteFont.MeasureString("Game Over").X) / 2, -GameOverSize.Y);
-           
+
             Scoreboard = content.Load<Texture2D>("Dashboard");
             ScoreboardSize = new Vector2(viewport.Width * .9f, viewport.Width * 0.545625f);
             ScoreboardLocation = new Vector2((viewport.Width - ScoreboardSize.X) / 2, viewport.Height);
@@ -130,6 +134,11 @@ namespace Sway_Chopter
                         {
                             playLocation.Y += 5;
                         }
+
+                        if (new Rectangle((int)rateLocation.X, (int)rateLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains((int)tl.Position.X, (int)tl.Position.Y))
+                        {
+                            rateLocation.Y += 5;
+                        }
                     }
 
                     if (tl.State == TouchLocationState.Released)
@@ -141,6 +150,13 @@ namespace Sway_Chopter
                             IsGameOver = false;
                             GetReadE = true;
                             buttonSound.Play();
+                        }
+
+                        if (new Rectangle((int)rateLocation.X, (int)rateLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains((int)tl.Position.X, (int)tl.Position.Y))
+                        {
+                            WebBrowserTask webBrowserTask = new WebBrowserTask();
+                            webBrowserTask.Uri = new Uri("http://www.windowsphone.com/en-us/store/app/twerkopter/856c085f-ef09-40ef-be62-4f64011ae84a", UriKind.Absolute);
+                            webBrowserTask.Show();
                         }
                     }
                 }
@@ -170,7 +186,7 @@ namespace Sway_Chopter
                     {
                         GameOverLocation.Y = TransitionY((viewport.Height / 30), viewport.Height / 4, GameOverLocation.Y);
                         ScoreboardLocation.Y = TransitionY(-(viewport.Height / 30), GameOverLocation.Y + GameOverSize.Y + viewport.Height / 20, ScoreboardLocation.Y);
-                        playLocation.Y = ScoreboardLocation.Y + ScoreboardSize.Y + viewport.Height / 20;
+                        rateLocation.Y = playLocation.Y = ScoreboardLocation.Y + ScoreboardSize.Y + viewport.Height / 20;
 
                         TouchCollection touchCollection = TouchPanel.GetState();
                         foreach (TouchLocation tl in touchCollection)
@@ -180,6 +196,11 @@ namespace Sway_Chopter
                                 if (new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains((int)tl.Position.X, (int)tl.Position.Y))
                                 {
                                     playLocation.Y += 5;
+                                }
+
+                                if (new Rectangle((int)rateLocation.X, (int)rateLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains((int)tl.Position.X, (int)tl.Position.Y))
+                                {
+                                    rateLocation.Y += 5;
                                 }
                             }
 
@@ -202,6 +223,13 @@ namespace Sway_Chopter
                                     Menu = false;
                                     IsGameOver = false;
                                     GetReadE = true;
+                                }
+
+                                if (new Rectangle((int)rateLocation.X, (int)rateLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains((int)tl.Position.X, (int)tl.Position.Y))
+                                {
+                                    WebBrowserTask webBrowserTask = new WebBrowserTask();
+                                    webBrowserTask.Uri = new Uri("http://www.windowsphone.com/en-us/store/app/twerkopter/856c085f-ef09-40ef-be62-4f64011ae84a", UriKind.Absolute);
+                                    webBrowserTask.Show();
                                 }
                             }
                         }
@@ -252,6 +280,7 @@ namespace Sway_Chopter
                 spriteBatch.DrawString(spriteFont, "Twerkopter", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f), Color.White, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
 
                 spriteBatch.Draw(btnPlay, new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y), Color.White);
+                spriteBatch.Draw(btnRate, new Rectangle((int)rateLocation.X, (int)rateLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y), Color.White);
             }
 
             else
@@ -284,50 +313,51 @@ namespace Sway_Chopter
                         spriteBatch.Draw(Scoreboard, new Rectangle((int)ScoreboardLocation.X, (int)ScoreboardLocation.Y, (int)ScoreboardSize.X, (int)ScoreboardSize.Y), Color.White);
 
                         #region Score
-                            ScoreSize = spriteFont.MeasureString(score.score.ToString());
-                            #region Outline
-                            spriteBatch.DrawString(spriteFont, score.score.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10) + 3, ScoreboardLocation.Y + (ScoreboardSize.Y / 4)), Color.Black, 0, new Vector2(ScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
-                            spriteBatch.DrawString(spriteFont, score.score.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10) - 3, ScoreboardLocation.Y + (ScoreboardSize.Y / 4)), Color.Black, 0, new Vector2(ScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
-                            spriteBatch.DrawString(spriteFont, score.score.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y / 4) + 3), Color.Black, 0, new Vector2(ScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
-                            spriteBatch.DrawString(spriteFont, score.score.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y / 4) - 3), Color.Black, 0, new Vector2(ScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
-                            #endregion
-
-                            spriteBatch.DrawString(spriteFont, score.score.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y / 4)), Color.White, 0, new Vector2(ScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                        ScoreSize = spriteFont.MeasureString(score.score.ToString());
+                        #region Outline
+                        spriteBatch.DrawString(spriteFont, score.score.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10) + 3, ScoreboardLocation.Y + (ScoreboardSize.Y / 4)), Color.Black, 0, new Vector2(ScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                        spriteBatch.DrawString(spriteFont, score.score.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10) - 3, ScoreboardLocation.Y + (ScoreboardSize.Y / 4)), Color.Black, 0, new Vector2(ScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                        spriteBatch.DrawString(spriteFont, score.score.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y / 4) + 3), Color.Black, 0, new Vector2(ScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                        spriteBatch.DrawString(spriteFont, score.score.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y / 4) - 3), Color.Black, 0, new Vector2(ScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
                         #endregion
 
-                            #region HighScore
-                            HighScoreSize = spriteFont.MeasureString(score.getHighScore().ToString());
-                            #region Outline
-                            spriteBatch.DrawString(spriteFont, score.highScore.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10) + 3, ScoreboardLocation.Y + (ScoreboardSize.Y * .7f)), Color.Black, 0, new Vector2(HighScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
-                            spriteBatch.DrawString(spriteFont, score.highScore.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10) - 3, ScoreboardLocation.Y + (ScoreboardSize.Y * .7f)), Color.Black, 0, new Vector2(HighScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
-                            spriteBatch.DrawString(spriteFont, score.highScore.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y * .7f) + 3), Color.Black, 0, new Vector2(HighScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
-                            spriteBatch.DrawString(spriteFont, score.highScore.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y * .7f) - 3), Color.Black, 0, new Vector2(HighScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
-                            #endregion
+                        spriteBatch.DrawString(spriteFont, score.score.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y / 4)), Color.White, 0, new Vector2(ScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                        #endregion
 
-                            spriteBatch.DrawString(spriteFont, score.highScore.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y * .7f)), Color.White, 0, new Vector2(HighScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
-                            #endregion
+                        #region HighScore
+                        HighScoreSize = spriteFont.MeasureString(score.getHighScore().ToString());
+                        #region Outline
+                        spriteBatch.DrawString(spriteFont, score.highScore.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10) + 3, ScoreboardLocation.Y + (ScoreboardSize.Y * .7f)), Color.Black, 0, new Vector2(HighScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                        spriteBatch.DrawString(spriteFont, score.highScore.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10) - 3, ScoreboardLocation.Y + (ScoreboardSize.Y * .7f)), Color.Black, 0, new Vector2(HighScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                        spriteBatch.DrawString(spriteFont, score.highScore.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y * .7f) + 3), Color.Black, 0, new Vector2(HighScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                        spriteBatch.DrawString(spriteFont, score.highScore.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y * .7f) - 3), Color.Black, 0, new Vector2(HighScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                        #endregion
+
+                        spriteBatch.DrawString(spriteFont, score.highScore.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y * .7f)), Color.White, 0, new Vector2(HighScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
+                        #endregion
 
                         #region Medal
-                            if (score.score >= 10)
+                        if (score.score >= 10)
+                        {
+                            if (Convert.ToInt32(score.score.ToString().Remove(score.score.ToString().Length - 1)) % 3 == 1)
                             {
-                                if (Convert.ToInt32(score.score.ToString().Remove(score.score.ToString().Length - 1)) % 3 == 1)
-                                {
-                                    spriteBatch.Draw(MedalBronze, new Rectangle((int)(MedalLocation.X + ScoreboardLocation.X), (int)(MedalLocation.Y + ScoreboardLocation.Y), (int)MedalSize.X, (int)MedalSize.Y), Color.White);
-                                }
-
-                                if (Convert.ToInt32(score.score.ToString().Remove(score.score.ToString().Length - 1)) % 3 == 2)
-                                {
-                                    spriteBatch.Draw(MedalSilver, new Rectangle((int)(MedalLocation.X + ScoreboardLocation.X), (int)(MedalLocation.Y + ScoreboardLocation.Y), (int)MedalSize.X, (int)MedalSize.Y), Color.White);
-                                }
-
-                                if (Convert.ToInt32(score.score.ToString().Remove(score.score.ToString().Length - 1)) % 3 == 0)
-                                {
-                                    spriteBatch.Draw(MedalGold, new Rectangle((int)(MedalLocation.X + ScoreboardLocation.X), (int)(MedalLocation.Y + ScoreboardLocation.Y), (int)MedalSize.X, (int)MedalSize.Y), Color.White);
-                                }
+                                spriteBatch.Draw(MedalBronze, new Rectangle((int)(MedalLocation.X + ScoreboardLocation.X), (int)(MedalLocation.Y + ScoreboardLocation.Y), (int)MedalSize.X, (int)MedalSize.Y), Color.White);
                             }
+
+                            if (Convert.ToInt32(score.score.ToString().Remove(score.score.ToString().Length - 1)) % 3 == 2)
+                            {
+                                spriteBatch.Draw(MedalSilver, new Rectangle((int)(MedalLocation.X + ScoreboardLocation.X), (int)(MedalLocation.Y + ScoreboardLocation.Y), (int)MedalSize.X, (int)MedalSize.Y), Color.White);
+                            }
+
+                            if (Convert.ToInt32(score.score.ToString().Remove(score.score.ToString().Length - 1)) % 3 == 0)
+                            {
+                                spriteBatch.Draw(MedalGold, new Rectangle((int)(MedalLocation.X + ScoreboardLocation.X), (int)(MedalLocation.Y + ScoreboardLocation.Y), (int)MedalSize.X, (int)MedalSize.Y), Color.White);
+                            }
+                        }
                         #endregion
 
                         spriteBatch.Draw(btnPlay, new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y), Color.White);
+                        spriteBatch.Draw(btnRate, new Rectangle((int)rateLocation.X, (int)rateLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y), Color.White);
                     }
 
                     else
@@ -350,7 +380,7 @@ namespace Sway_Chopter
                         (int)obstacles.locations[i].Y,
                         (int)obstacles.size.X,
                         (int)obstacles.size.Y);
-                    if (player.collidesWithPlatform(rect)) 
+                    if (player.collidesWithPlatform(rect))
                         return true;
 
 
