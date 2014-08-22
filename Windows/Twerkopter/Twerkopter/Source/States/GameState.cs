@@ -21,7 +21,6 @@ namespace Twerkopter
     public class GameState : State
     {
         public static GameState me;
-        public Viewport viewport;
         public SpriteFont spriteFont;
 
         #region Menu
@@ -89,10 +88,10 @@ namespace Twerkopter
             GameOverSize = spriteFont.MeasureString("Game Over");
             
             GameOverLocation = new Vector2((viewport.Width - spriteFont.MeasureString("Game Over").X) / 2, -GameOverSize.Y);
-           
+            
             Scoreboard = content.Load<Texture2D>("Dashboard");
-            ScoreboardSize = new Vector2(viewport.Width * .9f, viewport.Width * 0.545625f);
-            ScoreboardLocation = new Vector2((viewport.Width - ScoreboardSize.X) / 2, viewport.Height);
+            ScoreboardSize = new Vector2(viewport.Height * .9f, viewport.Height * 0.545625f);
+            ScoreboardLocation = new Vector2((viewport.Width - ScoreboardSize.X) / 2, 100);
 
             buttonSound = c.Load<SoundEffect>("swing");
         }
@@ -114,6 +113,7 @@ namespace Twerkopter
                 {
                     if (tl.State == TouchLocationState.Pressed)
                     {
+                       
                         if (new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains((int)tl.Position.X, (int)tl.Position.Y))
                         {
                             playLocation.Y += 5;
@@ -137,10 +137,13 @@ namespace Twerkopter
 
                 if (mouse.LeftButton == ButtonState.Pressed)
                 {
-                    mousePressed = true;
-                    if (new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains(mouse.X, mouse.Y))
+                    if (!mousePressed)
                     {
-                        playLocation.Y += 5;
+                        mousePressed = true;
+                        if (new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains(mouse.X, mouse.Y))
+                        {
+                            playLocation.Y += 5;
+                        }
                     }
                 }
 
@@ -420,8 +423,6 @@ namespace Twerkopter
                         (int)obstacles.size.Y);
                     if (player.collidesWithPlatform(rect)) 
                         return true;
-
-
                 }
             }
 
