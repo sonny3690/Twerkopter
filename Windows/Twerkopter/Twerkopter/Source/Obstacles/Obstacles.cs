@@ -157,7 +157,7 @@ namespace Twerkopter.Source.Obstacles
 
         public bool wreckingBallCollision(Player.Player p)
         {
-            float ballRadiusSquared = 32 * 128;
+            float ballRadiusSquared = 128 * 128 * 4;
             Vector2 ballOffset = new Vector2((float)Math.Cos(WreckingBall.rotation + MathHelper.PiOver2), (float)Math.Sin(WreckingBall.rotation + MathHelper.PiOver2)) * 260;
             List<Vector2> ballPositions = new List<Vector2>();
 
@@ -185,7 +185,6 @@ namespace Twerkopter.Source.Obstacles
                         }
                     }
                 }
-
             return false;
         }
     }

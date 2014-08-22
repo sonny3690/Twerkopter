@@ -67,16 +67,16 @@ namespace Twerkopter
         public GameState(GraphicsDeviceManager g, ContentManager c, Viewport v) : base(g, c, v)
         {
             me = this;
-            viewport = v;
+            viewport = new Viewport(200, 0, v.Width-400, v.Height);
 
             ButtonSize = new Vector2(viewport.Width * 0.34f, viewport.Width * 0.17f);
             btnPlay = content.Load<Texture2D>("btnPlay");
             playLocation = new Vector2((viewport.Width - ButtonSize.X) / 2, viewport.Height * 0.6f);
 
-            score = new Score(v, c);
+            score = new Score(viewport, c);
             score.display = true;
 
-            player = new Player(v);
+            player = new Player(viewport);
             player.LoadContent(c);
 
             obstacles = new Obstacles(viewport);
@@ -91,7 +91,7 @@ namespace Twerkopter
             
             Scoreboard = content.Load<Texture2D>("Dashboard");
             ScoreboardSize = new Vector2(viewport.Height * .9f, viewport.Height * 0.545625f);
-            ScoreboardLocation = new Vector2((viewport.Width - ScoreboardSize.X) / 2, 100);
+            ScoreboardLocation = new Vector2((viewport.Width - ScoreboardSize.X) / 2, 150);
 
             buttonSound = c.Load<SoundEffect>("swing");
         }
@@ -329,19 +329,19 @@ namespace Twerkopter
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-
+            
             obstacles.Draw(spriteBatch);
             player.Draw(spriteBatch);
             if (Menu)
             {
                 #region outline
-                spriteBatch.DrawString(spriteFont, "Twerkopter", new Vector2(MainGame.me.viewport.Width * .5f + 3, MainGame.me.viewport.Height * .25f), Color.Black, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(spriteFont, "Twerkopter", new Vector2(MainGame.me.viewport.Width * .5f - 3, MainGame.me.viewport.Height * .25f), Color.Black, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(spriteFont, "Twerkopter", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f + 3), Color.Black, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(spriteFont, "Twerkopter", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f - 3), Color.Black, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, "Twerkopter", new Vector2(viewport.Width * .5f + 3, viewport.Height * .25f), Color.Black, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, "Twerkopter", new Vector2(viewport.Width * .5f - 3, viewport.Height * .25f), Color.Black, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, "Twerkopter", new Vector2(viewport.Width * .5f, viewport.Height * .25f + 3), Color.Black, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, "Twerkopter", new Vector2(viewport.Width * .5f, viewport.Height * .25f - 3), Color.Black, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
                 #endregion
 
-                spriteBatch.DrawString(spriteFont, "Twerkopter", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f), Color.White, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, "Twerkopter", new Vector2(viewport.Width * .5f, viewport.Height * .25f), Color.White, 0, Menusize * .5f, 1f, SpriteEffects.None, 0f);
 
                 spriteBatch.Draw(btnPlay, new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y), Color.White);
             }
@@ -351,13 +351,13 @@ namespace Twerkopter
                 if (GetReadE)
                 {
                     #region outline
-                    spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(MainGame.me.viewport.Width * .5f + 3, MainGame.me.viewport.Height * .25f), Color.White, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
-                    spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(MainGame.me.viewport.Width * .5f - 3, MainGame.me.viewport.Height * .25f), Color.White, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
-                    spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f + 3), Color.White, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
-                    spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f - 3), Color.White, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(viewport.Width * .5f + 3, viewport.Height * .25f), Color.White, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(viewport.Width * .5f - 3, viewport.Height * .25f), Color.White, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(viewport.Width * .5f, viewport.Height * .25f + 3), Color.White, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(me.viewport.Width * .5f, viewport.Height * .25f - 3), Color.White, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
                     #endregion
 
-                    spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .25f), Color.Green, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(spriteFont, "Get Ready", new Vector2(viewport.Width * .5f, viewport.Height * .25f), Color.Green, 0, new Vector2(READEsize.X * .5f, 0), 1f, SpriteEffects.None, 0f);
                 }
 
                 else
