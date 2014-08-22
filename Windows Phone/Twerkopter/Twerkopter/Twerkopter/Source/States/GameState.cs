@@ -45,6 +45,12 @@ namespace Sway_Chopter
         bool IsGameOver = true;
         Vector2 GameOverLocation;
         Vector2 GameOverSize;
+
+        Texture2D MedalBronze;
+        Texture2D MedalSilver;
+        Texture2D MedalGold;
+        Vector2 MedalLocation;
+        Vector2 MedalSize;
         #endregion
 
         #region Platform
@@ -92,6 +98,13 @@ namespace Sway_Chopter
             Scoreboard = content.Load<Texture2D>("Dashboard");
             ScoreboardSize = new Vector2(viewport.Width * .9f, viewport.Width * 0.545625f);
             ScoreboardLocation = new Vector2((viewport.Width - ScoreboardSize.X) / 2, viewport.Height);
+
+            MedalBronze = content.Load<Texture2D>("Bronze-Medal");
+            MedalSilver = content.Load<Texture2D>("Silver-Medal");
+            MedalGold = content.Load<Texture2D>("Gold-Medal");
+
+            MedalSize = new Vector2(70 * ScoreboardSize.Y / 194);
+            MedalLocation = new Vector2(27 * (ScoreboardSize.X / 320), 76 * (ScoreboardSize.Y / 194));
 
             buttonSound = c.Load<SoundEffect>("swing");
         }
@@ -293,6 +306,27 @@ namespace Sway_Chopter
 
                             spriteBatch.DrawString(spriteFont, score.highScore.ToString(), new Vector2(ScoreboardLocation.X + ScoreboardSize.X - (ScoreboardSize.X / 10), ScoreboardLocation.Y + (ScoreboardSize.Y * .7f)), Color.White, 0, new Vector2(HighScoreSize.X, 0), 1f, SpriteEffects.None, 0f);
                             #endregion
+
+                        #region Medal
+                            if (score.score >= 10)
+                            {
+                                if (Convert.ToInt32(score.score.ToString().Remove(score.score.ToString().Length - 1)) % 3 == 1)
+                                {
+                                    spriteBatch.Draw(MedalBronze, new Rectangle((int)(MedalLocation.X + ScoreboardLocation.X), (int)(MedalLocation.Y + ScoreboardLocation.Y), (int)MedalSize.X, (int)MedalSize.Y), Color.White);
+                                }
+
+                                if (Convert.ToInt32(score.score.ToString().Remove(score.score.ToString().Length - 1)) % 3 == 2)
+                                {
+                                    spriteBatch.Draw(MedalSilver, new Rectangle((int)(MedalLocation.X + ScoreboardLocation.X), (int)(MedalLocation.Y + ScoreboardLocation.Y), (int)MedalSize.X, (int)MedalSize.Y), Color.White);
+                                }
+
+                                if (Convert.ToInt32(score.score.ToString().Remove(score.score.ToString().Length - 1)) % 3 == 0)
+                                {
+                                    spriteBatch.Draw(MedalGold, new Rectangle((int)(MedalLocation.X + ScoreboardLocation.X), (int)(MedalLocation.Y + ScoreboardLocation.Y), (int)MedalSize.X, (int)MedalSize.Y), Color.White);
+                                }
+                            }
+                        #endregion
+
                         spriteBatch.Draw(btnPlay, new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y), Color.White);
                     }
 
