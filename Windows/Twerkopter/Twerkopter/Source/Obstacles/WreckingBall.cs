@@ -48,7 +48,7 @@ namespace Twerkopter.Source.Obstacles
 
         public void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(texture, this.pos, null, Color.White, rotation, new Vector2(32, 5), 1f, SpriteEffects.None, 0f);
+            spritebatch.Draw(texture, this.pos, null, Color.White, rotation, new Vector2(32, 5), 4f, SpriteEffects.None, 0f);
         }
     }
 }
