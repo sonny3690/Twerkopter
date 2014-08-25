@@ -1,4 +1,3 @@
-Sway-Chopter
+Twerkopter
 ============
 
-A clone of Swing Copters
