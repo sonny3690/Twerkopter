@@ -1,29 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Twerkopter.Source.Mechanics;
-using Twerkopter.Source.Player;
 
 namespace Twerkopter
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class MainGame : Game
+    public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        public Viewport viewport;
 
-        public State currentState;
-
-        public static MainGame me;
-
-        public MainGame()
+        public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
-            me = this;
         }
 
         /// <summary>
@@ -35,12 +26,6 @@ namespace Twerkopter
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            viewport = GraphicsDevice.Viewport;
-
-            currentState = new GameState(graphics, Content, viewport);
-            currentState.Initialize();
-
-            this.IsMouseVisible = true;
 
             base.Initialize();
         }
@@ -55,11 +40,6 @@ namespace Twerkopter
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            currentState.LoadContent();
-
-            Source.Obstacles.WreckingBall.texture = Content.Load<Texture2D>("Wrecking Ball");
-            Source.Obstacles.WreckingBall.whiteText = new Texture2D(GraphicsDevice, 1, 1);
-            Source.Obstacles.WreckingBall.whiteText.SetData<Color>(new Color[] { Color.White });
         }
 
         /// <summary>
@@ -79,7 +59,6 @@ namespace Twerkopter
         protected override void Update(GameTime gameTime)
         {
             // TODO: Add your update logic here
-            currentState = currentState.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -93,7 +72,6 @@ namespace Twerkopter
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            currentState.Draw(gameTime, spriteBatch);
 
             base.Draw(gameTime);
         }
