@@ -105,7 +105,7 @@ namespace Twerkopter
             player = new Player(viewport);
             obstacles = new Obstacles(viewport);
 
-            ScoreboardSize = new Vector2(viewport.Width * .3f, viewport.Width * 0.545625f);
+            ScoreboardSize = new Vector2(viewport.Width * .4f, (viewport.Width * .4f) / 124 * 76);
             ScoreboardLocation = new Vector2((viewport.Width - ScoreboardSize.X) / 2, viewport.Height);
 
             MedalSize = new Vector2(70 * ScoreboardSize.Y / 194);
@@ -142,7 +142,7 @@ namespace Twerkopter
             Menusize = spriteFont.MeasureString("Twerkopter");
 
             GameOverSize = spriteFont.MeasureString("Game Over");
-            GameOverLocation = new Vector2((viewport.Width - spriteFont.MeasureString("Game Over").X) / 2, - GameOverSize.Y);
+            GameOverLocation = new Vector2(viewport.Width / 2, 20);
 
             MedalBronze = content.Load<Texture2D>("Bronze-Medal");
             MedalSilver = content.Load<Texture2D>("Silver-Medal");
@@ -414,6 +414,7 @@ namespace Twerkopter
                                 mouseClick = false;
                             }
                         }
+
                         obstacles.Update(gameTime, 4);
                         player.Update(gameTime);
 
@@ -476,13 +477,13 @@ namespace Twerkopter
                     if (IsGameOver)
                     {
                         #region outline
-                        spriteBatch.DrawString(spriteFont, "Game Over", new Vector2(GameOverLocation.X + 3, GameOverLocation.Y), Color.White, 0, Vector2.Zero, 2f, SpriteEffects.None, 0f);
-                        spriteBatch.DrawString(spriteFont, "Game Over", new Vector2(GameOverLocation.X - 3, GameOverLocation.Y), Color.White, 0, Vector2.Zero, 2f, SpriteEffects.None, 0f);
-                        spriteBatch.DrawString(spriteFont, "Game Over", new Vector2(GameOverLocation.X, GameOverLocation.Y + 3), Color.White, 0, Vector2.Zero, 2f, SpriteEffects.None, 0f);
-                        spriteBatch.DrawString(spriteFont, "Game Over", new Vector2(GameOverLocation.X, GameOverLocation.Y - 3), Color.White, 0, Vector2.Zero, 2f, SpriteEffects.None, 0f);
+                        spriteBatch.DrawString(spriteFont, "Game Over", new Vector2(GameOverLocation.X + 3, GameOverLocation.Y), Color.White, 0, new Vector2(GameOverSize.X * .5f, 0), 2f, SpriteEffects.None, 0f);
+                        spriteBatch.DrawString(spriteFont, "Game Over", new Vector2(GameOverLocation.X - 3, GameOverLocation.Y), Color.White, 0, new Vector2(GameOverSize.X * .5f, 0), 2f, SpriteEffects.None, 0f);
+                        spriteBatch.DrawString(spriteFont, "Game Over", new Vector2(GameOverLocation.X, GameOverLocation.Y + 3), Color.White, 0, new Vector2(GameOverSize.X * .5f, 0), 2f, SpriteEffects.None, 0f);
+                        spriteBatch.DrawString(spriteFont, "Game Over", new Vector2(GameOverLocation.X, GameOverLocation.Y - 3), Color.White, 0, new Vector2(GameOverSize.X * .5f, 0), 2f, SpriteEffects.None, 0f);
                         #endregion
 
-                        spriteBatch.DrawString(spriteFont, "Game Over", GameOverLocation, Color.Orange, 0, Vector2.Zero, 2f, SpriteEffects.None, 0f);
+                        spriteBatch.DrawString(spriteFont, "Game Over", GameOverLocation, Color.Orange, 0, new Vector2(GameOverSize.X * .5f, 0), 2f, SpriteEffects.None, 0f);
 
                         spriteBatch.Draw(Scoreboard, new Rectangle((int)ScoreboardLocation.X, (int)ScoreboardLocation.Y, (int)ScoreboardSize.X, (int)ScoreboardSize.Y), Color.White);
 
