@@ -1,42 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-
-  <Identity Name="abd06a7a-cf0c-4cc5-ab8e-6c7fbb690b4c"
-            Publisher="CN=Jay"
-            Version="1.0.0.0" />
-
+  <Identity Name="36669ED21E3F4.Twerkopter" Publisher="CN=5D024F75-54CE-40CD-B932-2EB9FEBC6972" Version="1.0.0.0" />
   <Properties>
     <DisplayName>Twerkopter</DisplayName>
-    <PublisherDisplayName>Jay</PublisherDisplayName>
+    <PublisherDisplayName>UnitedJayM.</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
-
   <Prerequisites>
     <OSMinVersion>6.2.1</OSMinVersion>
     <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
   </Prerequisites>
-
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="x-generate" />
   </Resources>
-
   <Applications>
-    <Application Id="App"
-        Executable="$targetnametoken$.exe"
-        EntryPoint="Twerkopter.App">
-        <VisualElements
-            DisplayName="Twerkopter"
-            Logo="Assets\Logo.png"
-            SmallLogo="Assets\SmallLogo.png"
-            Description="Twerkopter"
-            ForegroundText="light"
-            BackgroundColor="#464646">
-            <DefaultTile ShowName="allLogos" />
-            <SplashScreen Image="Assets\SplashScreen.png" />
-        </VisualElements>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Twerkopter.App">
+      <VisualElements DisplayName="Twerkopter" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Twerkopter" ForegroundText="light" BackgroundColor="#9c9c9c" ToastCapable="false">
+        <DefaultTile ShowName="allLogos" WideLogo="Assets\Wide310x150Logo.png" />
+        <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#9c9c9c" />
+        <InitialRotationPreference>
+          <Rotation Preference="landscape" />
+          <Rotation Preference="landscapeFlipped" />
+        </InitialRotationPreference>
+      </VisualElements>
     </Application>
   </Applications>
-  <Capabilities>
-    <Capability Name="internetClient" />
-  </Capabilities>
 </Package>

@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 using Twerkopter;
+using Windows.Storage;
 
 namespace Sway_Chopter.Source.Mechanics
 {
@@ -40,66 +41,48 @@ namespace Sway_Chopter.Source.Mechanics
             if (display)
             {
                 #region outline
-                spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(MainGame.me.viewport.Width * .5f + 3, MainGame.me.viewport.Height * .3f), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(MainGame.me.viewport.Width * .5f - 3, MainGame.me.viewport.Height * .3f), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .3f + 3), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .3f - 3), Color.Black, 0, size * .5f, 1f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(MainGame.me.viewport.Width * .5f + 3, MainGame.me.viewport.Height * .3f), Color.Black, 0, size * .5f, 2.5f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(MainGame.me.viewport.Width * .5f - 3, MainGame.me.viewport.Height * .3f), Color.Black, 0, size * .5f, 2.5f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .3f + 3), Color.Black, 0, size * .5f, 2.5f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .3f - 3), Color.Black, 0, size * .5f, 2.5f, SpriteEffects.None, 0f);
                 #endregion
-                spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .3f), Color.White, 0, size * .5f, 1f, SpriteEffects.None, 0f); 
+                spriteBatch.DrawString(spriteFont, score.ToString(), new Vector2(MainGame.me.viewport.Width * .5f, MainGame.me.viewport.Height * .3f), Color.White, 0, size * .5f, 2.5f, SpriteEffects.None, 0f); 
             }               
+        }
+
+        private async void callHS()
+        {
+            try
+            {
+                StorageFile sampleFile = await ApplicationData.Current.LocalFolder.GetFileAsync("dataFile.txt");
+                highScore = Convert.ToInt32(await FileIO.ReadTextAsync(sampleFile));
+            }
+
+            catch (Exception)
+            {
+            }
         }
 
         public int getHighScore()
         {
-            /*
-            IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication();
-            int highscore = 0;
-
-            // read high score
-            try
-            {
-                using (BinaryReader reader = new BinaryReader(new IsolatedStorageFileStream("scores", FileMode.Open, FileAccess.Read, storage)))
-                {
-                    highscore = reader.ReadInt32();
-                    reader.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-
-            highScore = highscore;
-            return highscore;
-             */
-
-            return 0;
+            callHS();
+            return highScore;
         }
 
-        public void saveScore()
+        public async void saveScore()
         {
-            /*
-            IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication();
+            var localFolder = ApplicationData.Current.LocalFolder;
 
-            int highscore = getHighScore();
+            try { StorageFile sampleFile = await localFolder.CreateFileAsync("dataFile.txt"); } //Create if doesn't exist
+            catch { }
 
-            if (score > highscore)
+            int hs = getHighScore();
+
+            if (score > hs)
             {
-                highScore = score;
-                try
-                {
-                    using (BinaryWriter writer = new BinaryWriter(new IsolatedStorageFileStream("scores", FileMode.OpenOrCreate, FileAccess.Write, storage)))
-                    {
-                        writer.Write(score);
-                        writer.Close();
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
+                StorageFile sampleFile = await localFolder.GetFileAsync("dataFile.txt");
+                await FileIO.WriteTextAsync(sampleFile, score.ToString());
             }
-             */
         }
     }
 }

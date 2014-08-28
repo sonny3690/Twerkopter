@@ -76,6 +76,8 @@ namespace Twerkopter
         bool mouseClick = false;
         MouseState mouse;
 
+        KeyboardState keyboard;
+
         public MainGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -436,7 +438,7 @@ namespace Twerkopter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DimGray);
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
