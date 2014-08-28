@@ -11,14 +11,14 @@ namespace Twerkopter
     /// </summary>
     public sealed partial class GamePage : SwapChainBackgroundPanel
     {
-        readonly Game1 _game;
+        readonly MainGame _game;
 
         public GamePage(LaunchActivatedEventArgs args)
         {
             this.InitializeComponent();
 
             // Create the game.
-            _game = XamlGame<Game1>.Create(args, Window.Current.CoreWindow, this);
+            _game = XamlGame<MainGame>.Create(args, Window.Current.CoreWindow, this);
         }
     }
 }
