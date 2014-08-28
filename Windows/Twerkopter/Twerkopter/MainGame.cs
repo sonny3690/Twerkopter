@@ -72,6 +72,10 @@ namespace Twerkopter
 
         public SoundEffect buttonSound;
 
+
+        bool mouseClick = false;
+        MouseState mouse;
+
         public MainGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -164,6 +168,8 @@ namespace Twerkopter
         protected override void Update(GameTime gameTime)
         {
             // TODO: Add your update logic here
+            mouse = Mouse.GetState();
+
             if (Menu)
             {
                 TouchCollection touchCollection = TouchPanel.GetState();
@@ -204,6 +210,42 @@ namespace Twerkopter
                     }
                 }
 
+                if (mouse.LeftButton == ButtonState.Pressed)
+                {
+                    if (!mouseClick)
+                    {
+                        if (new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains((int)mouse.X, mouse.Y))
+                        {
+                            playLocation.Y += 5;
+                        }
+
+                        if (new Rectangle((int)rateLocation.X, (int)rateLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains(mouse.Position.X, mouse.Y))
+                        {
+                            rateLocation.Y += 5;
+                        }
+                    }
+
+                    mouseClick = true;
+                }
+
+                else
+                {
+                    if (mouseClick)
+                    {
+                        mouseClick = false;
+
+                        if (new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains(mouse.X, mouse.Y))
+                        {
+                            playLocation.Y -= 5;
+                            Menu = false;
+                            IsGameOver = false;
+                            GetReadE = true;
+                            buttonSound.Play();
+                        }
+
+                    }
+                }
+
                 obstacles.Update(gameTime, 0);
             }
 
@@ -220,6 +262,23 @@ namespace Twerkopter
                             GetReadE = false;
                         }
                     }
+
+                    if (mouse.LeftButton == ButtonState.Pressed)
+                    {
+                        mouseClick = true;
+                    }
+
+                    else
+                    {
+                        if (mouseClick)
+                        {
+                            buttonSound.Play();
+                            GetReadE = false;
+
+                            mouseClick = false;
+                        }
+                    }
+
                     obstacles.Update(gameTime, 0);
                 }
 
@@ -279,6 +338,52 @@ namespace Twerkopter
                             }
                         }
 
+                        if (mouse.LeftButton == ButtonState.Pressed)
+                        {
+                            if (!mouseClick)
+                            {
+                                if (new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains(mouse.X, mouse.Y))
+                                {
+                                    playLocation.Y += 5;
+                                }
+
+                                if (new Rectangle((int)rateLocation.X, (int)rateLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains(mouse.X, mouse.Y))
+                                {
+                                    rateLocation.Y += 5;
+                                }
+                            }
+
+                            mouseClick = true;
+                        }
+
+                        else
+                        {
+                            if (mouseClick)
+                            {
+                                if (new Rectangle((int)playLocation.X, (int)playLocation.Y, (int)ButtonSize.X, (int)ButtonSize.Y).Contains(mouse.X, mouse.Y))
+                                {
+                                    buttonSound.Play();
+
+                                    playLocation.Y -= 5;
+
+                                    player = new Player(viewport);
+                                    player.LoadContent(this.Content);
+
+                                    obstacles = new Obstacles(viewport);
+                                    obstacles.LoadContent(this.Content);
+
+                                    score.score = 0;
+
+                                    Menu = false;
+                                    IsGameOver = false;
+                                    GetReadE = true;
+
+                                    mouseClick = false;
+                                }
+                            }
+                            
+                        }
+
                         obstacles.Update(gameTime, 0);
                     }
 
@@ -291,6 +396,22 @@ namespace Twerkopter
                             {
                                 buttonSound.Play();
                                 player.TapUpdate();
+                            }
+                        }
+
+                        if (mouse.LeftButton == ButtonState.Pressed)
+                        {
+                            mouseClick = true;
+                        }
+
+                        else
+                        {
+                            if (mouseClick)
+                            {
+                                buttonSound.Play();
+                                player.TapUpdate();
+
+                                mouseClick = false;
                             }
                         }
                         obstacles.Update(gameTime, 4);
