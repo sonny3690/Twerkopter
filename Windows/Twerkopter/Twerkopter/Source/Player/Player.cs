@@ -50,7 +50,7 @@ namespace Sway_Chopter.Source.Player
         {
             viewport = vp;
 
-            size = new Vector2(viewport.Width * 0.25f, viewport.Width * 0.25f  * 3.061538461538462f);
+            size = new Vector2(viewport.Height * 0.15f, viewport.Height * 0.15f  * 3.061538461538462f);
 
             float xSize = viewport.Width * 0.25f;
             float sizeY = xSize * 1.56f;

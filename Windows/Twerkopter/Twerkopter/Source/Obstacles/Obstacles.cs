@@ -41,9 +41,9 @@ namespace Sway_Chopter.Source.Obstacles
         {
             viewport = vp;
 
-            passPoint = viewport.Height - (viewport.Width * 0.25f * 1.56f * 1.5f);
+            passPoint = MainGame.me.player.location.Y;
 
-            size = new Vector2(viewport.Width, viewport.Width * 0.0625f);
+            size = new Vector2(viewport.Width * .75f, viewport.Width * .75f * 0.0625f);
             r = new Random();
 
             textures = new List<Texture2D>();
@@ -157,7 +157,7 @@ namespace Sway_Chopter.Source.Obstacles
 
         public bool wreckingBallCollision(Player.Player p)
         {
-            float ballRadiusSquared = 32 * 32;
+            float ballRadiusSquared = 64 * 64;
             Vector2 ballOffset = new Vector2((float)Math.Cos(WreckingBall.rotation + MathHelper.PiOver2), (float)Math.Sin(WreckingBall.rotation + MathHelper.PiOver2)) * 65;
             List<Vector2> ballPositions = new List<Vector2>();
 

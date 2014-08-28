@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Sway_Chopter.Source.Player;
+using Twerkopter;
 
 namespace Sway_Chopter.Source.Obstacles
 {
@@ -19,11 +20,13 @@ namespace Sway_Chopter.Source.Obstacles
         public static float rotation;
         private static int direction = 1;
         private static bool flip = true;
+        Vector2 size;
 
         public WreckingBall(Vector2 position, ContentManager c)
         {
             this.pos = position;
             texture = c.Load<Texture2D>("Wrecking Ball");
+            size = new Vector2(MainGame.me.viewport.Height / 100, (MainGame.me.viewport.Height / 100) / 64 * 106);
         }
 
         public void Update(GameTime gameTime, int moveUp)
@@ -49,7 +52,7 @@ namespace Sway_Chopter.Source.Obstacles
 
         public void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(texture, this.pos, new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, new Vector2(32, 5), 1f, SpriteEffects.None, 0f);
+            spritebatch.Draw(texture, this.pos, new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, new Vector2(32, 5), 2f, SpriteEffects.None, 0f);
         }
     }
 }
