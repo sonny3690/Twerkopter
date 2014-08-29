@@ -171,6 +171,7 @@ namespace Twerkopter
         {
             // TODO: Add your update logic here
             mouse = Mouse.GetState();
+            keyboard = Keyboard.GetState();
 
             if (Menu)
             {
@@ -248,6 +249,15 @@ namespace Twerkopter
                     }
                 }
 
+                if (keyboard.IsKeyDown(Keys.Space) ||
+                    keyboard.IsKeyDown(Keys.Enter))
+                {
+                    Menu = false;
+                    IsGameOver = false;
+                    GetReadE = true;
+                    buttonSound.Play();
+                }
+
                 obstacles.Update(gameTime, 0);
             }
 
@@ -279,6 +289,15 @@ namespace Twerkopter
 
                             mouseClick = false;
                         }
+                    }
+
+                    if (keyboard.IsKeyDown(Keys.Space) ||
+                    keyboard.IsKeyDown(Keys.Enter))
+                    {
+                        buttonSound.Play();
+                        GetReadE = false;
+
+                        mouseClick = false;
                     }
 
                     obstacles.Update(gameTime, 0);
@@ -384,6 +403,28 @@ namespace Twerkopter
                                 }
                             }
                             
+                        }
+
+                        if (keyboard.IsKeyDown(Keys.Space) ||
+                            keyboard.IsKeyDown(Keys.Enter))
+                        {
+                            buttonSound.Play();
+
+                            playLocation.Y -= 5;
+
+                            player = new Player(viewport);
+                            player.LoadContent(this.Content);
+
+                            obstacles = new Obstacles(viewport);
+                            obstacles.LoadContent(this.Content);
+
+                            score.score = 0;
+
+                            Menu = false;
+                            IsGameOver = false;
+                            GetReadE = true;
+
+                            mouseClick = false;
                         }
 
                         obstacles.Update(gameTime, 0);
