@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Media;
 using Sway_Chopter.Source.Mechanics;
 using Sway_Chopter.Source.Player;
 
+using Microsoft.Advertising.Mobile.Xna;
+
 namespace Sway_Chopter
 {
     /// <summary>
@@ -19,6 +21,9 @@ namespace Sway_Chopter
     /// </summary>
     public class MainGame : Microsoft.Xna.Framework.Game
     {
+        private string adUnit = "188521";
+        private string appID = "ed001509-62a2-4f70-a902-aa84265f8abc";
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public Viewport viewport;
@@ -26,6 +31,9 @@ namespace Sway_Chopter
         public State currentState;
 
         public static MainGame me;
+
+        DrawableAd advertisement;
+
         public MainGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -77,6 +85,12 @@ namespace Sway_Chopter
 
             currentState = new GameState(graphics, Content, viewport);
             currentState.Initialize();
+
+            AdGameComponent.Initialize(this, appID);
+            Components.Add(AdGameComponent.Current);
+
+            // Create an actual ad for display.
+            CreateAd();
 
             base.Initialize();
         }
@@ -136,6 +150,17 @@ namespace Sway_Chopter
             currentState.Draw(gameTime, spriteBatch);
 
             base.Draw(gameTime);
+        }
+
+        private void CreateAd()
+        {
+            // Create a banner ad for the game.
+            int width = 480;
+            int height = 80;
+            int x = (GraphicsDevice.Viewport.Bounds.Width - width) / 2; // centered on the display
+            int y = 0;
+
+            advertisement = AdGameComponent.Current.CreateAd(adUnit, new Rectangle(x, y, width, height), true);
         }
     }
 }
